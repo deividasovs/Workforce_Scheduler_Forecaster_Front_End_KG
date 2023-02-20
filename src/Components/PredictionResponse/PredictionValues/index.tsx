@@ -1,0 +1,1 @@
+export { PredictionTable } from './PredictionTable'
