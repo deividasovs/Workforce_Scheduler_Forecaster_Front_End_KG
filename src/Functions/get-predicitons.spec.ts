@@ -19,4 +19,6 @@ describe('GetPredictions', () => {
 
     it('should have the correct endpoint url', async () => {
         const response = await GetPredictions();
-        expect(
+        expect(response.url).toBe('http://localhost:8080/predict');
+    });
+});

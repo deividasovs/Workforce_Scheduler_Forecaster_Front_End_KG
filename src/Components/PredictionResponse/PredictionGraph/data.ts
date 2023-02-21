@@ -7,14 +7,25 @@ const predicted_data = (data: TPredictions): any[] => {
     const today = new Date().getDay()
 
     return [
-        { date: today, value: agglomorateData(0, data.transaction_count) },
-        { date: today + 1, value: agglomorateData(7, data.transaction_count) },
-        { date: today + 2, value: agglomorateData(15, data.transaction_count) },
-        { date: today + 3, value: agglomorateData(23, data.transaction_count) },
-        { date: today + 4, value: agglomorateData(31, data.transaction_count) },
-        { date: today + 5, value: agglomorateData(39, data.transaction_count) },
-        { date: today + 6, value: agglomorateData(47, data.transaction_count) }
+        { date: convertDayNumToString(today), value: agglomorateData(0, data.transaction_count) },
+        { date: convertDayNumToString(today + 1), value: agglomorateData(7, data.transaction_count) },
+        { date: convertDayNumToString(today + 2), value: agglomorateData(15, data.transaction_count) },
+        { date: convertDayNumToString(today + 3), value: agglomorateData(23, data.transaction_count) },
+        { date: convertDayNumToString(today + 4), value: agglomorateData(31, data.transaction_count) },
+        { date: convertDayNumToString(today + 5), value: agglomorateData(39, data.transaction_count) },
+        { date: convertDayNumToString(today + 6), value: agglomorateData(47, data.transaction_count) }
     ]
+}
+
+
+const convertDayNumToString = (day: number): string => {
+    const weekday = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    if (day > 6) {
+        return weekday[day - 7]
+    }
+    else {
+        return weekday[day]
+    }
 }
 
 /// Hour increments are 8, so for each day, we need to add 8 to the index to get the next day's data

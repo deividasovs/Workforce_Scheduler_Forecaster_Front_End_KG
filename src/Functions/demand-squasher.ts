@@ -9,12 +9,12 @@ function SquashDemand(payload: any, predictedValues: TPredictions) {
 
     for (var d = 0; d < 7; d++) {
         demands.push([])
+        /// Skip the first shift, it's an off shift
         for (var i = 1; i < payload.Shifts.length; i++) {
             const startTime = payload.Shifts[i].split("-")[0]
             const endTime = payload.Shifts[i].split("-")[1]
 
             // Get the average demand between the startTime and the EndTime shift
-            //[0] - [7] is the first day., d*8 is the day, i is the shift
 
             /// From the start time till the endTime, get the average demand
             const startHour = parseInt(startTime.split(":")[0])
@@ -27,8 +27,6 @@ function SquashDemand(payload: any, predictedValues: TPredictions) {
             }
 
             /// Set the demand to equal to average returned demand for the shift
-
-            //demands[d][i] = Math.round(totalDemand / (endHour - startHour))
             demands[d].push(Math.round(totalDemand / (endHour - startHour)))
         }
     }

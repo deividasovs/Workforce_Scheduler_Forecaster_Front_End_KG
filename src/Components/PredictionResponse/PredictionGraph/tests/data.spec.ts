@@ -1,4 +1,3 @@
-import { getByText, render } from "@testing-library/react";
 import { predicted_data } from "../data";
 import { TPredictions } from "src/Types";
 
@@ -10,10 +9,12 @@ const mockPredictions: TPredictions = {
     dept4: [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8]
 };
 
-//1+2+3+4+5+6+7 = 28
-
-
 describe("predicted_data", () => {
+
+    /// Mock today's date
+    jest.useFakeTimers()
+        .setSystemTime(new Date('2023-02-05'));
+
     it("returns expected data", () => {
         const expectedData = [
             { date: "Mon", value: 36 },
