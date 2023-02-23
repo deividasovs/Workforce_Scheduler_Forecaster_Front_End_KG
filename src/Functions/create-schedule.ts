@@ -24,6 +24,9 @@ async function CreateScheduleWithPredictedValues(payload: any, predictedValues: 
     console.log("Predicted Values:")
     console.log(predictedValues)
 
+    console.log("The payload is:")
+    console.log(payload)
+
     // If payload object contains a WeeklyCoverDemand key, then delete that key
     if (payload.WeeklyCoverDemand) {
         delete payload.WeeklyCoverDemand
@@ -31,14 +34,14 @@ async function CreateScheduleWithPredictedValues(payload: any, predictedValues: 
 
     /// BIG TODO: Might have to run workforce scheduler n times due to predicting multiple depts
     /// It currently only schedules 1 dept
-
-
     const demands = SquashDemand(payload, predictedValues)
+
+
 
     // Add predicted values to payload 
     payload['WeeklyCoverDemand'] = demands
 
-    console.log(payload)
+
 
     // Send payload to endpoint    
     const response = await fetch(ENDPOINT, {

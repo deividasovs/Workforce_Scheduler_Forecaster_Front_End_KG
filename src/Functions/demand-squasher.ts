@@ -27,7 +27,11 @@ function SquashDemand(payload: any, predictedValues: TPredictions) {
             }
 
             /// Set the demand to equal to average returned demand for the shift
-            demands[d].push(Math.round(totalDemand / (endHour - startHour)))
+            let avgDemand = Math.round(totalDemand / (endHour - startHour))
+            if (Number.isNaN(avgDemand)) { /// TODO: Fix this! -> Just a HotFix for now...
+                avgDemand = 1
+            }
+            demands[d].push(avgDemand)
         }
     }
 

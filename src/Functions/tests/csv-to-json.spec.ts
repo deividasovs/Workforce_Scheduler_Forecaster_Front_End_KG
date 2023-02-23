@@ -1,4 +1,4 @@
-import { ConvertCSVToJson } from "../csv-to-json"
+import { ConvertStaffCSVToJson } from "../csv-to-json"
 
 /*
     Example input:
@@ -92,7 +92,7 @@ const sampleOutput = {
 
 describe('ConvertCSVToJson', () => {
     test('converts a csv string to json file', async () => {
-        const output = ConvertCSVToJson(sampleInput)
+        const output = ConvertStaffCSVToJson(sampleInput)
         //const jsonStr = JSON.stringify(output);
         expect(output).toEqual(sampleOutput)
     })

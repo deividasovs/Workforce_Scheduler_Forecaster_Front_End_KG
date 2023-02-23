@@ -1,12 +1,12 @@
-/// TODO: Make this into 1 component?
-
 import { ChangeEvent, useState } from "react";
 
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { Button } from '@mui/material';
 
+import { ConvertStaffCSVToJson, ConvertDemandCSVToJson } from "src/Functions/csv-to-json";
 
-const UploadJsonBtn = ({ setCurrFile }: { setCurrFile: any }) => {
+
+const UploadCsvBtn = ({ setCurrFile, isDemand }: { setCurrFile: any, isDemand: boolean }) => {
     const [filename, setFilename] = useState("");
 
     const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,14 +26,19 @@ const UploadJsonBtn = ({ setCurrFile }: { setCurrFile: any }) => {
             }
             const { result } = evt.target;
 
-            const res = JSON.parse(result as string)
+            //const res = JSON.parse(result as string)
 
             console.log("----Input received----");
+            console.log(result)
 
-            console.log(res)
 
-            setCurrFile(res)
+            const convertedToJSON = isDemand ? ConvertDemandCSVToJson(result as string) : ConvertStaffCSVToJson(result as string)
+            //const convertedToJSON = ConvertStaffCSVToJson(result as string)
 
+            console.log("-----CSV converted to Json-----")
+            console.log(convertedToJSON)
+
+            setCurrFile(convertedToJSON)
         };
 
         reader.readAsBinaryString(file);
@@ -46,11 +51,11 @@ const UploadJsonBtn = ({ setCurrFile }: { setCurrFile: any }) => {
                 component="label"
                 startIcon={<UploadFileIcon />}
             >
-                Upload json
+                Upload csv
                 <input
                     type="file"
                     hidden
-                    accept='.json'
+                    accept='.csv'
                     onChange={handleFileUpload}
                 />
             </Button>
@@ -60,4 +65,4 @@ const UploadJsonBtn = ({ setCurrFile }: { setCurrFile: any }) => {
     )
 };
 
-export { UploadJsonBtn }
+export { UploadCsvBtn }

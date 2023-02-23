@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Container, Button, Typography, Checkbox, Popover, Grid, CircularProgress } from "@mui/material"
 
-import { UploadJsonBtn } from 'src/Components/UploadBtn'
+import { UploadJsonBtn, UploadCsvBtn } from 'src/Components/UploadBtn'
 
 import { ResponseText } from 'src/Components/ResponseTxt'
 import { CreateSchedule, CreateScheduleWithPredictedValues } from 'src/Functions/create-schedule'
@@ -14,13 +14,10 @@ import { PredictionGraph } from 'src/Components/PredictionResponse/PredictionGra
 
 /* 
 TODO:
-
     - Set a type to the payload we'll be receiving from the backend
     - Clean up
         - Decouple this
     - Raise coverage
-
-    If Smart predict not selected, make user add a file for manual predictions
 */
 
 const MainPage = () => {
@@ -31,6 +28,8 @@ const MainPage = () => {
     const [smartPredict, setSmartPredict] = useState<boolean>(false);
     const [staffDataFile, setStaffDataFile] = useState<any>();
     const [demandFile, setDemandFile] = useState<any>();
+
+    //const [csvFile, setCsvFile] = useState<any>();
 
     const handleSmartPredict = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSmartPredict(event.target.checked);
@@ -43,20 +42,24 @@ const MainPage = () => {
             <br />
 
             <b>Upload staff data</b>
-            <p><i>Download Template</i></p>
-            <br />
-            <UploadJsonBtn setCurrFile={setStaffDataFile} />
+            <a href="#"><p><i>Download template</i></p></a>
+            {
+                //<UploadJsonBtn setCurrFile={setStaffDataFile} />
+            }
+            <UploadCsvBtn setCurrFile={setStaffDataFile} isDemand={false} />
 
 
-            <Typography>Use smart predict<Checkbox onChange={handleSmartPredict} /></Typography>
+            <Typography>Use smart demand predict<Checkbox onChange={handleSmartPredict} /></Typography>
 
             {smartPredict ? <></> :
                 <>
                     <br />
                     <b>Upload manual demand file</b>
-                    <p><i>Download Template</i></p>
-                    <br />
-                    <UploadJsonBtn setCurrFile={setDemandFile} />
+                    <a href="#"><p><i>Download template</i></p></a>
+                    {
+                        //<UploadJsonBtn setCurrFile={setDemandFile} />
+                    }
+                    <UploadCsvBtn setCurrFile={setDemandFile} isDemand={true} />
                     <br />
                 </>
             }
@@ -93,6 +96,7 @@ const MainPage = () => {
                 } else {
                     console.log("Generating...")
                     staffDataFile['WeeklyCoverDemand'] = demandFile['WeeklyCoverDemand']
+                    console.log(staffDataFile)
                     CreateSchedule(staffDataFile)
                         .then(response => response.text())
                         //.then(response => response.replaceAll('\'', "\""))
