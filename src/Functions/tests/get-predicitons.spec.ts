@@ -1,4 +1,4 @@
-import { GetPredictions } from './get-predicitons';
+import { GetPredictions } from '../get-predicitons';
 
 // Unit Test Code
 describe('GetPredictions', () => {

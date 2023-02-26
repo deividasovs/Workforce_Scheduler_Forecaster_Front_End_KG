@@ -9,6 +9,8 @@ import { GetPredictions } from 'src/Functions'
 
 import { PredictionTable } from 'src/Components/PredictionResponse/PredictionValues'
 
+import { ErrorMesssage } from 'src/Components/ErrorResponses/ErrorMessage'
+
 import { generateCSVFileFromString } from 'src/Functions'
 import { PredictionGraph } from 'src/Components/PredictionResponse/PredictionGraph'
 
@@ -28,6 +30,8 @@ const MainPage = () => {
     const [smartPredict, setSmartPredict] = useState<boolean>(false);
     const [staffDataFile, setStaffDataFile] = useState<any>();
     const [demandFile, setDemandFile] = useState<any>();
+
+    const [errorMsg, setErrorMsg] = useState<string>("");
 
     //const [csvFile, setCsvFile] = useState<any>();
 
@@ -65,7 +69,10 @@ const MainPage = () => {
             }
 
             <br />
+            {errorMsg && <ErrorMesssage error={errorMsg} />}
             <br />
+
+
 
             <Button variant="contained" onClick={() => {
                 setResponseText("Generating..")
@@ -91,22 +98,30 @@ const MainPage = () => {
                                 }
                                 ).catch(err => setResponseText(err.toString()))
                         })
-                        .catch(err => console.log(err))
+                        .catch(err => {
+                            setErrorMsg(err)
+                            console.log(err)
+                        })
 
                 } else {
                     console.log("Generating...")
-                    staffDataFile['WeeklyCoverDemand'] = demandFile['WeeklyCoverDemand']
-                    console.log(staffDataFile)
-                    CreateSchedule(staffDataFile)
-                        .then(response => response.text())
-                        //.then(response => response.replaceAll('\'', "\""))
-                        .then(response => JSON.parse(response))
-                        .then(data => {
-                            setResponseText(data.stats)
-                            console.log(data.schedule)
-                            setgeneratedRotaFile(data.schedule)
-                        }
-                        ).catch(err => setResponseText(err.toString()))
+                    try {
+                        staffDataFile['WeeklyCoverDemand'] = demandFile['WeeklyCoverDemand']
+                        console.log(staffDataFile)
+                        CreateSchedule(staffDataFile)
+                            .then(response => response.text())
+                            //.then(response => response.replaceAll('\'', "\""))
+                            .then(response => JSON.parse(response))
+                            .then(data => {
+                                setResponseText(data.stats)
+                                console.log(data.schedule)
+                                setgeneratedRotaFile(data.schedule)
+                            }
+                            ).catch(err => setResponseText(err.toString()))
+                    } catch (err) {
+                        setErrorMsg(err as string)
+                        console.log(err)
+                    }
                 }
             }}>
                 Generate
@@ -115,13 +130,13 @@ const MainPage = () => {
             <br />
             <br />
             <hr />
-            <Typography variant="h6">Response</Typography>
+            <Typography variant="h5">Response</Typography>
 
             <br />
             {
                 generatedRotaFile ?
-                    <Button variant="contained" onClick={() => generateCSVFileFromString(generatedRotaFile, "FILENAME.csv",)}>
-                        Download
+                    <Button variant="contained" color='success' onClick={() => generateCSVFileFromString(generatedRotaFile, "FILENAME.csv",)}>
+                        Download Staff Rota
                     </Button>
                     :
                     responseText === 'Generating..' ?

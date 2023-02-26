@@ -47,7 +47,7 @@ const PredictionTable = ({ data }: { data: TPredictions }) => {
 
     return (
         <>
-            <Typography>Predictions for next week</Typography>
+            <Typography variant="h6">Predictions for next week</Typography>
             <Paper>
                 <div style={{ height: 400, width: '100%' }}>
                     <DataGrid

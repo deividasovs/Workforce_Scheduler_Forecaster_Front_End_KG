@@ -1,4 +1,4 @@
-import { ConvertStaffCSVToJson } from "../csv-to-json"
+import { ConvertStaffCSVToJson, ConvertDemandCSVToJson } from "../csv-to-json"
 
 /*
     Example input:
@@ -70,7 +70,7 @@ Fixed Assignments
 
 
 const sampleOutput = {
-    "Employees": 6,
+    "EmployeeCount": 6,
     "Shifts": [
         "Off",
         "09:00-15:00",
@@ -81,7 +81,7 @@ const sampleOutput = {
         [0, 0, 3, -2],
         [1, 2, 1, 2]
     ],
-    "Fixed Assignments": [
+    "FixedAssignments": [
         [0, 0, 0],
         [0, 1, 1],
         [2, 0, 0]
@@ -95,5 +95,39 @@ describe('ConvertCSVToJson', () => {
         const output = ConvertStaffCSVToJson(sampleInput)
         //const jsonStr = JSON.stringify(output);
         expect(output).toEqual(sampleOutput)
+    })
+})
+
+
+const sampleDemandInput =
+    `
+Day,Demand for shift 1,Demand for shift 2,Demand for shift 3
+Monday,1,2,1
+Tuesday,2,1,1
+Wednesday,1,1,1
+Thursday,1,1,1
+Friday,1,1,1
+Saturday,1,1,1
+Sunday,1,1,1
+`
+
+const sampleDemandOutput = {
+    WeeklyCoverDemand: [
+        [1, 2, 1],
+        [2, 1, 1],
+        [1, 1, 1],
+        [1, 1, 1],
+        [1, 1, 1],
+        [1, 1, 1],
+        [1, 1, 1]
+    ]
+}
+
+
+describe('ConvertDemandCSVToJson', () => {
+    test('converts a csv string to json file', () => {
+        const output = ConvertDemandCSVToJson(sampleDemandInput)
+        //const jsonStr = JSON.stringify(output);
+        expect(output).toEqual(sampleDemandOutput)
     })
 })
