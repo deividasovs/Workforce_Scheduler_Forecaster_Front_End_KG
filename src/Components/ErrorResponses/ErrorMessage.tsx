@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 
 const ErrorMesssage = ({ error }: { error: string }) => {
     return (
-        <Typography variant="h5" color="error">
+        <Typography color="error">
             {error}
         </Typography>
     );

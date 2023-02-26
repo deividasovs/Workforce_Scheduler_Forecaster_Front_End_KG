@@ -49,6 +49,7 @@ const UploadCsvBtn = ({ setCurrFile, isDemand }: { setCurrFile: any, isDemand: b
             <Button
                 variant="outlined"
                 component="label"
+                size="small"
                 startIcon={<UploadFileIcon />}
             >
                 Upload csv

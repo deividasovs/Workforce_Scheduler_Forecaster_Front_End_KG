@@ -5,7 +5,7 @@ import { testDemands } from '../../Test-Data/test-demands'
 import { testPayload } from '../../Test-Data/test-payload'
 
 describe('CreateScheduleWithPredictedValues', () => {
-    test('sends the correct payload to the endpoint', async () => {
+    it('sends the correct payload to the endpoint', async () => {
         // Mock the fetch function
         const mockFetch = jest.fn().mockReturnValueOnce({
             status: 200,

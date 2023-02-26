@@ -1,26 +1,15 @@
 import { useState } from 'react'
-import { Container, Button, Typography, Checkbox, Popover, Grid, CircularProgress } from "@mui/material"
+import { Container, Button, Typography, Checkbox, CircularProgress } from "@mui/material"
 
-import { UploadJsonBtn, UploadCsvBtn } from 'src/Components/UploadBtn'
-
+import { UploadCsvBtn } from 'src/Components/UploadBtn'
 import { ResponseText } from 'src/Components/ResponseTxt'
-import { CreateSchedule, CreateScheduleWithPredictedValues } from 'src/Functions/create-schedule'
-import { GetPredictions } from 'src/Functions'
-
 import { PredictionTable } from 'src/Components/PredictionResponse/PredictionValues'
-
 import { ErrorMesssage } from 'src/Components/ErrorResponses/ErrorMessage'
-
-import { generateCSVFileFromString } from 'src/Functions'
 import { PredictionGraph } from 'src/Components/PredictionResponse/PredictionGraph'
 
-/* 
-TODO:
-    - Set a type to the payload we'll be receiving from the backend
-    - Clean up
-        - Decouple this
-    - Raise coverage
-*/
+import { CreateScheduleWithPredictedValuesWrapper } from 'src/Functions/wrappers/CreateScheduleWithPredictedWrapper'
+import { CreateSchedule } from 'src/Functions/create-schedule'
+import { generateCSVFileFromString } from 'src/Functions'
 
 const MainPage = () => {
     const [responseText, setResponseText] = useState<string>("");
@@ -28,12 +17,11 @@ const MainPage = () => {
     const [predictedData, setPredictedData] = useState<any>();
 
     const [smartPredict, setSmartPredict] = useState<boolean>(false);
+
     const [staffDataFile, setStaffDataFile] = useState<any>();
     const [demandFile, setDemandFile] = useState<any>();
 
     const [errorMsg, setErrorMsg] = useState<string>("");
-
-    //const [csvFile, setCsvFile] = useState<any>();
 
     const handleSmartPredict = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSmartPredict(event.target.checked);
@@ -42,14 +30,11 @@ const MainPage = () => {
     return (
         <Container>
             <br />
-            <Typography variant="h4">KG Workforce Forecaster Scheduler </Typography>
+            <Typography variant="h5">KG Workforce Forecaster Scheduler </Typography>
             <br />
 
             <b>Upload staff data</b>
             <a href="#"><p><i>Download template</i></p></a>
-            {
-                //<UploadJsonBtn setCurrFile={setStaffDataFile} />
-            }
             <UploadCsvBtn setCurrFile={setStaffDataFile} isDemand={false} />
 
 
@@ -60,9 +45,6 @@ const MainPage = () => {
                     <br />
                     <b>Upload manual demand file</b>
                     <a href="#"><p><i>Download template</i></p></a>
-                    {
-                        //<UploadJsonBtn setCurrFile={setDemandFile} />
-                    }
                     <UploadCsvBtn setCurrFile={setDemandFile} isDemand={true} />
                     <br />
                 </>
@@ -72,40 +54,38 @@ const MainPage = () => {
             {errorMsg && <ErrorMesssage error={errorMsg} />}
             <br />
 
+            <Button
+                variant="contained"
+                size='small'
+                onClick={() => {
+                    if (smartPredict) {
+                        if (staffDataFile === undefined) {
+                            setErrorMsg("Please upload staff data")
+                            return
+                        }
 
+                        console.log("Predicting and generating...")
+                        CreateScheduleWithPredictedValuesWrapper(staffDataFile)
+                            .then(data => {
+                                setResponseText(data.response)
+                                setgeneratedRotaFile(data.rota)
+                                setPredictedData(data.prediction)
+                            }).catch(err => {
+                                setErrorMsg(err.toString())
+                                console.log("There was an error")
+                            })
 
-            <Button variant="contained" onClick={() => {
-                setResponseText("Generating..")
+                    } else {
+                        if (staffDataFile === undefined) {
+                            setErrorMsg("Please upload staff data")
+                            return
+                        }
 
-                //// TODO: Clean this up big time!
+                        if (demandFile === undefined) {
+                            setErrorMsg("Please upload demand file or use smart predict")
+                            return
+                        }
 
-                if (smartPredict) {
-                    console.log("Predicting...")
-
-                    GetPredictions()
-                        .then(response => response.text())
-                        .then(response => JSON.parse(response))
-                        .then(data => {
-                            setPredictedData(data)
-
-                            CreateScheduleWithPredictedValues(staffDataFile, data)
-                                .then(response => response.text())
-                                .then(response => JSON.parse(response))
-                                .then(data => {
-                                    setResponseText(data.stats)
-                                    console.log(data.schedule)
-                                    setgeneratedRotaFile(data.schedule)
-                                }
-                                ).catch(err => setResponseText(err.toString()))
-                        })
-                        .catch(err => {
-                            setErrorMsg(err)
-                            console.log(err)
-                        })
-
-                } else {
-                    console.log("Generating...")
-                    try {
                         staffDataFile['WeeklyCoverDemand'] = demandFile['WeeklyCoverDemand']
                         console.log(staffDataFile)
                         CreateSchedule(staffDataFile)
@@ -114,23 +94,18 @@ const MainPage = () => {
                             .then(response => JSON.parse(response))
                             .then(data => {
                                 setResponseText(data.stats)
-                                console.log(data.schedule)
                                 setgeneratedRotaFile(data.schedule)
                             }
                             ).catch(err => setResponseText(err.toString()))
-                    } catch (err) {
-                        setErrorMsg(err as string)
-                        console.log(err)
                     }
-                }
-            }}>
+                }}>
                 Generate
             </Button>
 
             <br />
             <br />
             <hr />
-            <Typography variant="h5">Response</Typography>
+            <Typography variant="h6">Response</Typography>
 
             <br />
             {
@@ -157,6 +132,5 @@ const MainPage = () => {
         </Container >
     )
 }
-
 
 export { MainPage }
