@@ -28,6 +28,9 @@ async function CreateScheduleWithPredictedValues(payload: any, predictedValues: 
         delete payload.WeeklyCoverDemand
     }
 
+    console.log("The payload is:")
+    console.log(payload)
+
     const shiftDemands = SquashDemand(payload, predictedValues)
 
     // Add predicted values to payload 

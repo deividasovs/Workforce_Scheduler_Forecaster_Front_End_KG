@@ -7,6 +7,7 @@ import { ResponseText } from 'src/Components/ResponseTxt'
 import { PredictionTable } from 'src/Components/PredictionResponse/PredictionValues'
 import { ErrorMessage } from 'src/Components/ErrorResponses/ErrorMessage'
 import { PredictionGraph } from 'src/Components/PredictionResponse/PredictionGraph'
+import { RotaViewer } from 'src/Components/RotaViewer'
 
 import { RotaGenerator } from 'src/Functions/RotaGenerator'
 import { generateCSVFileFromString } from 'src/Functions'
@@ -72,9 +73,16 @@ const MainPage = () => {
             <br />
             {
                 generatedRotaFile ?
-                    <Button variant="contained" color='success' onClick={() => generateCSVFileFromString(generatedRotaFile, "FILENAME.csv",)}>
-                        Download Staff Rota
-                    </Button>
+                    <>
+                        <Button variant="contained" color='success' onClick={() => generateCSVFileFromString(generatedRotaFile, "Rota.csv",)}>
+                            Download Staff Rota
+                        </Button>
+
+                        {/*
+                            Show the csv data in a table
+                        */}
+                        <RotaViewer rotaFile={generatedRotaFile} />
+                    </>
                     :
                     responseText === 'Generating..' ?
                         <CircularProgress />

@@ -76,7 +76,7 @@ describe('RotaGenerator', () => {
         const setPredictedData = jest.fn();
 
         const mockResponse = { text: jest.fn().mockResolvedValueOnce(JSON.stringify({ stats: {}, schedule: {} })) };
-        jest.spyOn(global, 'fetch').mockResolvedValueOnce(mockResponse);
+        //jest.spyOn(global, 'fetch').mockResolvedValueOnce(mockResponse);
 
         RotaGenerator(staffDataFile, demandFile, false, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData);
 
