@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Container, Button, Typography, Checkbox, CircularProgress } from "@mui/material"
 
+import { HeaderBar } from 'src/Components/HeaderBar/HeaderBar'
 import { UploadCsvBtn } from 'src/Components/UploadBtn'
 import { ResponseText } from 'src/Components/ResponseTxt'
 import { PredictionTable } from 'src/Components/PredictionResponse/PredictionValues'
-import { ErrorMesssage } from 'src/Components/ErrorResponses/ErrorMessage'
+import { ErrorMessage } from 'src/Components/ErrorResponses/ErrorMessage'
 import { PredictionGraph } from 'src/Components/PredictionResponse/PredictionGraph'
 
 import { CreateScheduleWithPredictedValuesWrapper } from 'src/Functions/wrappers/CreateScheduleWithPredictedWrapper'
@@ -27,31 +28,34 @@ const MainPage = () => {
         setSmartPredict(event.target.checked);
     };
 
+    const handleErrorSet = (err: string) => {
+        setErrorMsg(err)
+    }
+
     return (
         <Container>
             <br />
-            <Typography variant="h5">KG Workforce Forecaster Scheduler </Typography>
+            <HeaderBar />
             <br />
 
             <b>Upload staff data</b>
             <a href="#"><p><i>Download template</i></p></a>
-            <UploadCsvBtn setCurrFile={setStaffDataFile} isDemand={false} />
-
+            <UploadCsvBtn setCurrFile={setStaffDataFile} isDemand={false} errorSet={handleErrorSet} />
 
             <Typography>Use smart demand predict<Checkbox onChange={handleSmartPredict} /></Typography>
 
             {smartPredict ? <></> :
                 <>
                     <br />
-                    <b>Upload manual demand file</b>
+                    <b>Upload manual demand</b>
                     <a href="#"><p><i>Download template</i></p></a>
-                    <UploadCsvBtn setCurrFile={setDemandFile} isDemand={true} />
+                    <UploadCsvBtn setCurrFile={setDemandFile} isDemand={true} errorSet={handleErrorSet} />
                     <br />
                 </>
             }
 
             <br />
-            {errorMsg && <ErrorMesssage error={errorMsg} />}
+            {errorMsg && <ErrorMessage error={errorMsg} />}
             <br />
 
             <Button
@@ -71,8 +75,8 @@ const MainPage = () => {
                                 setgeneratedRotaFile(data.rota)
                                 setPredictedData(data.prediction)
                             }).catch(err => {
-                                setErrorMsg(err.toString())
-                                console.log("There was an error")
+                                setErrorMsg(err.toString() + " : Please try again")
+                                console.log(err)
                             })
 
                     } else {
@@ -87,16 +91,14 @@ const MainPage = () => {
                         }
 
                         staffDataFile['WeeklyCoverDemand'] = demandFile['WeeklyCoverDemand']
-                        console.log(staffDataFile)
                         CreateSchedule(staffDataFile)
                             .then(response => response.text())
-                            //.then(response => response.replaceAll('\'', "\""))
                             .then(response => JSON.parse(response))
                             .then(data => {
                                 setResponseText(data.stats)
                                 setgeneratedRotaFile(data.schedule)
                             }
-                            ).catch(err => setResponseText(err.toString()))
+                            ).catch(err => setResponseText(err.toString() + " : Please try again"))
                     }
                 }}>
                 Generate

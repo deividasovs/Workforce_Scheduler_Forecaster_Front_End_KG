@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 
-const ErrorMesssage = ({ error }: { error: string }) => {
+const ErrorMessage = ({ error }: { error: string }) => {
     return (
         <Typography color="error">
             {error}
@@ -9,4 +9,4 @@ const ErrorMesssage = ({ error }: { error: string }) => {
 };
 
 
-export { ErrorMesssage }
+export { ErrorMessage }

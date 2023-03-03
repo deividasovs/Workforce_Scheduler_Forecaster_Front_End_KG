@@ -6,42 +6,53 @@ import { Button } from '@mui/material';
 import { ConvertStaffCSVToJson, ConvertDemandCSVToJson } from "src/Functions/csv-to-json";
 
 
-const UploadCsvBtn = ({ setCurrFile, isDemand }: { setCurrFile: any, isDemand: boolean }) => {
+const UploadCsvBtn = ({ setCurrFile, isDemand, errorSet }: { setCurrFile: any, isDemand: boolean, errorSet: any }) => {
     const [filename, setFilename] = useState("");
 
     const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
-        if (!e.target.files) {
-            return;
-        }
-        const file = e.target.files[0];
-        const { name } = file;
-
-        setFilename(name);
-
-        const reader = new FileReader();
-
-        reader.onload = (evt) => {
-            if (!evt?.target?.result) {
+        try {
+            if (!e.target.files) {
                 return;
             }
-            const { result } = evt.target;
+            const file = e.target.files[0];
+            const { name } = file;
 
-            //const res = JSON.parse(result as string)
+            setFilename(name);
 
-            console.log("----Input received----");
-            console.log(result)
+            const reader = new FileReader();
+
+            reader.readAsBinaryString(file);
+
+            reader.onload = (evt) => {
+                if (!evt?.target?.result) {
+                    return;
+                }
+                const { result } = evt.target;
 
 
-            const convertedToJSON = isDemand ? ConvertDemandCSVToJson(result as string) : ConvertStaffCSVToJson(result as string)
-            //const convertedToJSON = ConvertStaffCSVToJson(result as string)
+                console.log("----Input received----");
+                console.log(result)
 
-            console.log("-----CSV converted to Json-----")
-            console.log(convertedToJSON)
 
-            setCurrFile(convertedToJSON)
-        };
+                const convertedToJSON = isDemand ? ConvertDemandCSVToJson(result as string) : ConvertStaffCSVToJson(result as string)
 
-        reader.readAsBinaryString(file);
+                console.log("-----CSV converted to Json-----")
+                console.log(convertedToJSON)
+
+                /*
+                /// Check if the json is empty
+                if (convertedToJSON.length === 0) {
+                    console.log("Invalid format!")
+                    errorSet("Invalid format!")
+                    return
+                }*/
+
+
+                setCurrFile(convertedToJSON)
+            };
+        } catch (err) {
+            errorSet(err)
+        }
     };
 
     return (

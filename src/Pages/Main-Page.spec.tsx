@@ -7,10 +7,14 @@ describe('ResponseText component', () => {
 
         //expect(getByText('Generate')).toBeInTheDocument();
 
+
         /// Fire event on button that says Generate
+        expect(getByText('KG Workforce Forecaster Scheduler')).toBeInTheDocument();
+
 
         const generateButton = screen.getByText('Generate');
         fireEvent.click(generateButton);
+
 
         expect(getByText('Response')).toBeInTheDocument();
         expect(getByText('KG Workforce Forecaster Scheduler')).toBeInTheDocument();

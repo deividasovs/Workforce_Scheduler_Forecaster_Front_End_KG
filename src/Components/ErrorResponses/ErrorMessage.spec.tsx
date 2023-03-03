@@ -1,10 +1,10 @@
 import { render } from "@testing-library/react";
 
-import { ErrorMesssage } from "./ErrorMessage";
+import { ErrorMessage } from "./ErrorMessage";
 
-describe('ErrorMesssage', () => {
+describe('ErrorMessage', () => {
     it('should render the error message', () => {
-        const { getByText } = render(<ErrorMesssage error="Error" />);
+        const { getByText } = render(<ErrorMessage error="Error" />);
 
         expect(getByText('Error')).toBeInTheDocument();
     });
