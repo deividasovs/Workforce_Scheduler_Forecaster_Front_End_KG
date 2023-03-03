@@ -8,8 +8,7 @@ import { PredictionTable } from 'src/Components/PredictionResponse/PredictionVal
 import { ErrorMessage } from 'src/Components/ErrorResponses/ErrorMessage'
 import { PredictionGraph } from 'src/Components/PredictionResponse/PredictionGraph'
 
-import { CreateScheduleWithPredictedValuesWrapper } from 'src/Functions/wrappers/CreateScheduleWithPredictedWrapper'
-import { CreateSchedule } from 'src/Functions/create-schedule'
+import { RotaGenerator } from 'src/Functions/RotaGenerator'
 import { generateCSVFileFromString } from 'src/Functions'
 
 const MainPage = () => {
@@ -61,46 +60,7 @@ const MainPage = () => {
             <Button
                 variant="contained"
                 size='small'
-                onClick={() => {
-                    if (smartPredict) {
-                        if (staffDataFile === undefined) {
-                            setErrorMsg("Please upload staff data")
-                            return
-                        }
-
-                        console.log("Predicting and generating...")
-                        CreateScheduleWithPredictedValuesWrapper(staffDataFile)
-                            .then(data => {
-                                setResponseText(data.response)
-                                setgeneratedRotaFile(data.rota)
-                                setPredictedData(data.prediction)
-                            }).catch(err => {
-                                setErrorMsg(err.toString() + " : Please try again")
-                                console.log(err)
-                            })
-
-                    } else {
-                        if (staffDataFile === undefined) {
-                            setErrorMsg("Please upload staff data")
-                            return
-                        }
-
-                        if (demandFile === undefined) {
-                            setErrorMsg("Please upload demand file or use smart predict")
-                            return
-                        }
-
-                        staffDataFile['WeeklyCoverDemand'] = demandFile['WeeklyCoverDemand']
-                        CreateSchedule(staffDataFile)
-                            .then(response => response.text())
-                            .then(response => JSON.parse(response))
-                            .then(data => {
-                                setResponseText(data.stats)
-                                setgeneratedRotaFile(data.schedule)
-                            }
-                            ).catch(err => setResponseText(err.toString() + " : Please try again"))
-                    }
-                }}>
+                onClick={() => { RotaGenerator(staffDataFile, demandFile, smartPredict, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData) }}>
                 Generate
             </Button>
 
