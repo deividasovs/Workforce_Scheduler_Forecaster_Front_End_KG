@@ -9,7 +9,7 @@ import { ErrorMessage } from 'src/Components/ErrorResponses/ErrorMessage'
 import { PredictionGraph } from 'src/Components/PredictionResponse/PredictionGraph'
 import { RotaViewer } from 'src/Components/RotaViewer'
 
-import { RotaGenerator } from 'src/Functions/RotaGenerator'
+import { RotaGenerator } from 'src/Functions/rota-generator'
 import { generateCSVFileFromString } from 'src/Functions'
 
 const MainPage = () => {
@@ -61,7 +61,10 @@ const MainPage = () => {
             <Button
                 variant="contained"
                 size='small'
-                onClick={() => { RotaGenerator(staffDataFile, demandFile, smartPredict, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData) }}>
+                onClick={() => {
+                    setResponseText("Generating..")
+                    RotaGenerator(staffDataFile, demandFile, smartPredict, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData)
+                }}>
                 Generate
             </Button>
 
@@ -74,14 +77,11 @@ const MainPage = () => {
             {
                 generatedRotaFile ?
                     <>
-                        <Button variant="contained" color='success' onClick={() => generateCSVFileFromString(generatedRotaFile, "Rota.csv",)}>
-                            Download Staff Rota
-                        </Button>
-
-                        {/*
-                            Show the csv data in a table
-                        */}
                         <RotaViewer rotaFile={generatedRotaFile} />
+
+                        <Button variant="contained" color='success' onClick={() => generateCSVFileFromString(generatedRotaFile, "Rota.csv",)}>
+                            Download Rota CSV
+                        </Button>
                     </>
                     :
                     responseText === 'Generating..' ?

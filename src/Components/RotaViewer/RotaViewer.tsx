@@ -1,26 +1,47 @@
+import { useState, useEffect } from 'react';
+
+import { TableContainer, TableHead, TableRow, TableBody, TableCell, Typography } from '@mui/material';
+
 const RotaViewer = ({ rotaFile }: { rotaFile: any }) => {
-    // display the rota csv file in a table
+    const [tableData, setTableData] = useState<string[][]>([]);
 
-    console.log(rotaFile)
-
-    /*
-    Display this file
-
-    Mon,Tue,Wed,Thurs,Fri,Sat,Sun
-worker 0,11:00-16:00,09:00-15:00,Off,Off,15:00-20:00,11:00-16:00,15:00-20:00
-worker 1,15:00-20:00,Off,15:00-20:00,11:00-16:00,Off,15:00-20:00,11:00-16:00
-worker 2,Off,Off,11:00-16:00,15:00-20:00,11:00-16:00,11:00-16:00,09:00-15:00
-worker 3,Off,15:00-20:00,09:00-15:00,09:00-15:00,09:00-15:00,09:00-15:00,Off
-worker 4,09:00-15:00,09:00-15:00,09:00-15:00,09:00-15:00,09:00-15:00,Off,Off
-worker 5,09:00-15:00,11:00-16:00,09:00-15:00,09:00-15:00,09:00-15:00,Off,Off
-
-    */
-
+    useEffect(() => {
+        // convert csv to 2d array
+        const csvData = rotaFile
+        const rows = csvData.split("\n");
+        rows.shift();
+        const tableData = rows.map((row: any) => row.split(","));
+        setTableData(tableData);
+    }, []);
 
 
     return (
         <div>
-            <h1>Rota Viewer</h1>
+            <Typography variant="h6">Next week's rota</Typography>
+            <TableContainer>
+                <TableHead>
+                    <TableRow>
+                        <TableCell></TableCell>
+                        <TableCell>Mon</TableCell>
+                        <TableCell>Tue</TableCell>
+                        <TableCell>Wed</TableCell>
+                        <TableCell>Thurs</TableCell>
+                        <TableCell>Fri</TableCell>
+                        <TableCell>Sat</TableCell>
+                        <TableCell>Sun</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {
+                        tableData.map((row, rowIndex) => (
+                            <TableRow key={rowIndex}>
+                                {row.map((cell: any, cellIndex: any) => (
+                                    <TableCell key={`${rowIndex}-${cellIndex}`}>{cell}</TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                </TableBody>
+            </TableContainer>
         </div>
     )
 }

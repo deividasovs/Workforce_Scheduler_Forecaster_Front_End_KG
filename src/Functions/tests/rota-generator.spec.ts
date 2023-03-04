@@ -1,4 +1,4 @@
-import { RotaGenerator } from '../RotaGenerator'
+import { RotaGenerator } from '../rota-generator'
 
 describe('RotaGenerator', () => {
     it('should call setErrorMsg when smartPredict is true and staffDataFile is undefined', () => {
