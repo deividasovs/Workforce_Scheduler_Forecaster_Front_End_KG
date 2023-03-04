@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import { TableContainer, TableHead, TableRow, TableBody, TableCell, Typography } from '@mui/material';
 
+import { StaffCost } from './StaffCost';
+
 const RotaViewer = ({ rotaFile }: { rotaFile: any }) => {
     const [tableData, setTableData] = useState<string[][]>([]);
 
@@ -42,6 +44,8 @@ const RotaViewer = ({ rotaFile }: { rotaFile: any }) => {
                         ))}
                 </TableBody>
             </TableContainer>
+
+            <StaffCost />
         </div>
     )
 }

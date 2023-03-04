@@ -1,5 +1,8 @@
 import { RotaGenerator } from '../rota-generator'
 
+jest.mock('src/Functions/get-predictions');
+jest.mock('src/Functions/create-schedule')
+
 describe('RotaGenerator', () => {
     it('should call setErrorMsg when smartPredict is true and staffDataFile is undefined', () => {
         const setErrorMsg = jest.fn();
