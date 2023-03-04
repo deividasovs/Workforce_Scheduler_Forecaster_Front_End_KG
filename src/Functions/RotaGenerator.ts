@@ -8,9 +8,13 @@ function RotaGenerator(staffDataFile: any, demandFile: any, smartPredict: boolea
             return
         }
 
-    console.log("Predicting and generating...")
+        console.log("Predicting and generating...")
         CreateScheduleWithPredictedValuesWrapper(staffDataFile = { staffDataFile })
             .then(data => {
+                console.log("Setting data")
+                console.log(data.response)
+                console.log(data.rota)
+                console.log(data.prediction)
                 setResponseText(data.response)
                 setgeneratedRotaFile(data.rota)
                 setPredictedData(data.prediction)
