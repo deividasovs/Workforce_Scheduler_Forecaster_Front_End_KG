@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "kg-workforce-scheduler-FE"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-uua8kx0s89vi"
+s3_prefix = "kg-workforce-scheduler-FE"
+region = "eu-west-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "DomainName=\"\" HostedZoneId=\"\" AcmCertificateArn=\"\" IndexDocument=\"index.html\" ErrorDocument=\"404.html\" RewriteMode=\"STATIC\" CloudFrontPriceClass=\"PriceClass_100\""
+image_repositories = []
