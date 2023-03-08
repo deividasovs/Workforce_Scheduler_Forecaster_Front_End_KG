@@ -39,7 +39,7 @@ const MainPage = () => {
             <br />
 
             <b>Upload staff data</b>
-            <a href="#"><p><i>Download template</i></p></a>
+            <a href="https://kg-datasets-012.s3.eu-west-1.amazonaws.com/department_1_input.csv"><p><i>Download template</i></p></a>
             <UploadCsvBtn setCurrFile={setStaffDataFile} isDemand={false} errorSet={handleErrorSet} />
 
             <Typography>Use smart demand predict<Checkbox onChange={handleSmartPredict} /></Typography>
@@ -48,7 +48,7 @@ const MainPage = () => {
                 <>
                     <br />
                     <b>Upload manual demand</b>
-                    <a href="#"><p><i>Download template</i></p></a>
+                    <a href="https://kg-datasets-012.s3.eu-west-1.amazonaws.com/manual_demand.csv"><p><i>Download template</i></p></a>
                     <UploadCsvBtn setCurrFile={setDemandFile} isDemand={true} errorSet={handleErrorSet} />
                     <br />
                 </>
