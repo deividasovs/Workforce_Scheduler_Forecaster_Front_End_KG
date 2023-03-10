@@ -1,9 +1,9 @@
-const StaffCost = () => {
+const StaffCost = ({ cost, actualHours, hourBudget }: { cost: number, actualHours: number, hourBudget: number }) => {
 
     return (
         <>
-            <p>  Staffing budget: €1000 - 400hrs </p>
-            <p>  Staffing cost: €1200 - 420hrs</p>
+            <p>  Staffing budget: €{hourBudget * cost}  - {hourBudget}hrs </p>
+            <p>  Staffing cost: €{actualHours * cost} - {actualHours}hrs</p>
         </>
     )
 }

@@ -13,7 +13,10 @@ worker 5,09:00-15:00,11:00-16:00,09:00-15:00,09:00-15:00,09:00-15:00,Off,Off`
 
 describe("RotaViewer", () => {
     it("should render", async () => {
-        render(<RotaViewer rotaFile={sampleCsvData} />);
+        const staffCostPerHour = 10
+        const hourBudget = 35
+
+        render(<RotaViewer rotaFile={sampleCsvData} staffCostPerHour={staffCostPerHour} hourBudget={hourBudget} />);
         expect(screen.getByText("Next week's rota")).toBeVisible();
         expect(screen.getByText("Tue")).toBeVisible();
 

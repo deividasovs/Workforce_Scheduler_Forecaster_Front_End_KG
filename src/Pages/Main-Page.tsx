@@ -16,6 +16,8 @@ const MainPage = () => {
     const [responseText, setResponseText] = useState<string>("");
     const [generatedRotaFile, setgeneratedRotaFile] = useState<any>();
     const [predictedData, setPredictedData] = useState<any>();
+    const [staffCostPerHour, setStafCostPerHour] = useState<number>(5);
+    const [staffBudgetedHours, setStaffBudgetedHours] = useState<number>(5);
 
     const [smartPredict, setSmartPredict] = useState<boolean>(false);
 
@@ -77,7 +79,7 @@ const MainPage = () => {
             {
                 generatedRotaFile ?
                     <>
-                        <RotaViewer rotaFile={generatedRotaFile} />
+                        <RotaViewer staffCostPerHour={staffCostPerHour} hourBudget={staffBudgetedHours} rotaFile={generatedRotaFile} />
 
                         <Button variant="contained" color='success' onClick={() => generateCSVFileFromString(generatedRotaFile, "Rota.csv",)}>
                             Download Rota CSV

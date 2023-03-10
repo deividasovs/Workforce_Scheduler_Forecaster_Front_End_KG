@@ -3,9 +3,11 @@ import { useState, useEffect } from 'react';
 import { TableContainer, TableHead, TableRow, TableBody, TableCell, Typography } from '@mui/material';
 
 import { StaffCost } from './StaffCost';
+import { CalculateStaffCost } from 'src/Functions/calculate-staff-cost';
 
-const RotaViewer = ({ rotaFile }: { rotaFile: any }) => {
+const RotaViewer = ({ rotaFile, staffCostPerHour, hourBudget }: { rotaFile: any, staffCostPerHour: number, hourBudget: number }) => {
     const [tableData, setTableData] = useState<string[][]>([]);
+    const [actualStaffHours, setActualStaffHours] = useState<number>(0);
 
     useEffect(() => {
         // convert csv to 2d array
@@ -13,6 +15,8 @@ const RotaViewer = ({ rotaFile }: { rotaFile: any }) => {
         const rows = csvData.split("\n");
         rows.shift();
         const tableData = rows.map((row: any) => row.split(","));
+        const totalStaffHours = CalculateStaffCost(tableData);
+        setActualStaffHours(totalStaffHours);
         setTableData(tableData);
     }, []);
 
@@ -45,7 +49,7 @@ const RotaViewer = ({ rotaFile }: { rotaFile: any }) => {
                 </TableBody>
             </TableContainer>
 
-            <StaffCost />
+            <StaffCost cost={staffCostPerHour} hourBudget={hourBudget} actualHours={actualStaffHours} />
         </div>
     )
 }
