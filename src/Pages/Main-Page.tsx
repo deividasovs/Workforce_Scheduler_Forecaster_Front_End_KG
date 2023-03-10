@@ -77,7 +77,7 @@ const MainPage = () => {
 
             <br />
             {
-                generatedRotaFile ?
+                (generatedRotaFile && !responseText.includes("INFEASIBLE")) ?
                     <>
                         <RotaViewer staffCostPerHour={staffCostPerHour} hourBudget={staffBudgetedHours} rotaFile={generatedRotaFile} />
 

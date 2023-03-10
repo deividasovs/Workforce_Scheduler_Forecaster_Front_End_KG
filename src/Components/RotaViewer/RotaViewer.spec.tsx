@@ -21,7 +21,6 @@ describe("RotaViewer", () => {
         expect(screen.getByText("Tue")).toBeVisible();
 
         expect(await screen.findByText("worker 0")).toBeVisible();
-        //expect(await screen.findAllByText("09:00-15:00")[]).toBeVisible();
-        //expect(await screen.findAllByText("Off")[0]).toBeVisible();
+
     });
 });
