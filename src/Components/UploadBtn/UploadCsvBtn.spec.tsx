@@ -1,6 +1,4 @@
-import React from 'react';
-import { findByText, fireEvent, render } from '@testing-library/react';
-import { ConvertDemandCSVToJson, ConvertStaffCSVToJson } from 'src/Functions/csv-to-json';
+import { fireEvent, render } from '@testing-library/react';
 import { UploadCsvBtn } from './UploadCsvBtn';
 
 describe('UploadCsvBtn', () => {

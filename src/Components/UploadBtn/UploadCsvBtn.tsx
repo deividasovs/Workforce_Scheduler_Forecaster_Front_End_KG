@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 import { ConvertStaffCSVToJson, ConvertDemandCSVToJson } from "src/Functions/csv-to-json";
 
 
-const UploadCsvBtn = ({ setCurrFile, isDemand, errorSet }: { setCurrFile: any, isDemand: boolean, errorSet: any }) => {
+const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours, isDemand, errorSet }: { setCurrFile: any, setStaffBudgetedHours: any, setStaffCostPerHour: any, isDemand: boolean, errorSet: any }) => {
     const [filename, setFilename] = useState("");
 
     const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,10 +34,21 @@ const UploadCsvBtn = ({ setCurrFile, isDemand, errorSet }: { setCurrFile: any, i
                 console.log(result)
 
 
-                const convertedToJSON = isDemand ? ConvertDemandCSVToJson(result as string) : ConvertStaffCSVToJson(result as string)
+                let convertedCsv: any = null
+
+                if (isDemand) {
+                    convertedCsv = ConvertDemandCSVToJson(result as string)
+                } else {
+                    const convertedCsvValues = ConvertStaffCSVToJson(result as string)
+
+                    convertedCsv = convertedCsvValues.convertedCsv
+                    const { costPerHour, budgetedHours } = convertedCsv
+                    setStaffCostPerHour(costPerHour)
+                    setStaffBudgetedHours(budgetedHours)
+                }
 
                 console.log("-----CSV converted to Json-----")
-                console.log(convertedToJSON)
+                console.log(convertedCsv)
 
                 /*
                 /// Check if the json is empty
@@ -48,7 +59,7 @@ const UploadCsvBtn = ({ setCurrFile, isDemand, errorSet }: { setCurrFile: any, i
                 }*/
 
 
-                setCurrFile(convertedToJSON)
+                setCurrFile(convertedCsv)
             };
         } catch (err) {
             errorSet(err)

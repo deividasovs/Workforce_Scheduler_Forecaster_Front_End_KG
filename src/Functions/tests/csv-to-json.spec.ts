@@ -94,7 +94,7 @@ describe('ConvertCSVToJson', () => {
     test('converts a csv string to json file', async () => {
         const output = ConvertStaffCSVToJson(sampleInput)
         //const jsonStr = JSON.stringify(output);
-        expect(output).toEqual(sampleOutput)
+        expect(output[0]).toEqual(sampleOutput)
     })
 })
 
