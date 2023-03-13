@@ -9,6 +9,7 @@ import { sampleGeneratedRota2 } from "src/Test-Data/sampleRotas/sample-generated
 import { AppLayout } from "src/Components/AppLayout"
 import { RotaViewer } from "src/Components/RotaViewer/RotaViewer"
 import { TabPanel, TabContext, TabList } from "@mui/lab";
+import { HISTORICAL_ROTAS_PAGE_NAME } from "src/consts";
 
 
 
@@ -42,7 +43,7 @@ const HistoricalRotasPage = () => {
     return (
         <AppLayout
 
-            title={"Past Rotas"}
+            title={HISTORICAL_ROTAS_PAGE_NAME}
             content={
                 <>
                     <FormControl style={{ minWidth: "100px" }}>

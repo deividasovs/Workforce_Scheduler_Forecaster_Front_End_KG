@@ -4,7 +4,7 @@ import CreateIcon from '@mui/icons-material/Create'
 import TimelineIcon from '@mui/icons-material/Timeline'
 import HistoryIcon from '@mui/icons-material/History'
 
-import { LANDING_PAGE_EP, GENERATE_ROTA_PAGE_EP, PREDICTIONS_PAGE_EP, HISTORICAL_ROTAS_EP } from 'src/consts';
+import { LANDING_PAGE_EP, GENERATE_ROTA_PAGE_EP, PREDICTIONS_PAGE_EP, HISTORICAL_ROTAS_EP, GENERATE_ROTA_PAGE_NAME, FORECAST_PAGE_NAME, HISTORICAL_ROTAS_PAGE_NAME } from 'src/consts';
 
 const Drawer = ({ isOpen }: { isOpen: boolean }) => (
     <SwipeableDrawer
@@ -24,19 +24,19 @@ const Drawer = ({ isOpen }: { isOpen: boolean }) => (
                 <ListItemIcon>
                     <CreateIcon />
                 </ListItemIcon>
-                <ListItemText primary="Generate Rota" />
+                <ListItemText primary={GENERATE_ROTA_PAGE_NAME} />
             </ListItem>
             <ListItem button component={Link} href={PREDICTIONS_PAGE_EP}>
                 <ListItemIcon>
                     <TimelineIcon />
                 </ListItemIcon>
-                <ListItemText primary="Predictions" />
+                <ListItemText primary={FORECAST_PAGE_NAME} />
             </ListItem>
             <ListItem button component={Link} href={HISTORICAL_ROTAS_EP}>
                 <ListItemIcon>
                     <HistoryIcon />
                 </ListItemIcon>
-                <ListItemText primary="Historical Rotas" />
+                <ListItemText primary={HISTORICAL_ROTAS_PAGE_NAME} />
             </ListItem>
         </List>
     </SwipeableDrawer>

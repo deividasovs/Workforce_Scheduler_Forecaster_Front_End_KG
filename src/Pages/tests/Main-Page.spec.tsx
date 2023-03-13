@@ -5,7 +5,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { RotaGenerator } from 'src/Functions/rota-generator';
 
-import { RotaGenerationPage } from '../RotaGenerationPage';
+import { CreateRotaPage } from '../CreateRotaPage';
 
 jest.mock('src/Functions/rota-generator', () => ({
     RotaGenerator: jest.fn((setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData) => {
@@ -15,7 +15,7 @@ jest.mock('src/Functions/rota-generator', () => ({
 
 describe('ResponseText component', () => {
     it('should render the initial content', async () => {
-        render(<RotaGenerationPage />);
+        render(<CreateRotaPage />);
 
         expect(screen.getByText('KG Workforce Forecaster Scheduler')).toBeInTheDocument();
 
@@ -36,7 +36,7 @@ describe('ResponseText component', () => {
 
     it('should process the click events', async () => {
 
-        render(<RotaGenerationPage />);
+        render(<CreateRotaPage />);
 
         const staffDataFile = new File([''], 'staff.csv', { type: 'text/csv' });
         const demandFile = new File([''], 'demand.csv', { type: 'text/csv' });
