@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { StaffCost } from "./StaffCost";
+import { StaffCost } from "../StaffCost";
 
 describe("StaffCost", () => {
     it("should should the staff costs", () => {

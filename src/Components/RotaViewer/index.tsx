@@ -1,1 +1,1 @@
-export { RotaViewer } from './RotaViewer'
+export { RotaSection } from './RotaSection'

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { RotaViewer } from "./RotaViewer";
+import { RotaViewer } from "../RotaViewer";
 
 const sampleCsvData =
     `Mon,Tue,Wed,Thurs,Fri,Sat,Sun
