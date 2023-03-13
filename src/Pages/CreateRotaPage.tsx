@@ -67,10 +67,6 @@ const CreateRotaPage = () => {
                         </>
                     }
 
-
-                    {errorMsg && <ErrorMessage error={errorMsg} />}
-
-
                     <Button
                         variant="contained"
                         size='small'
@@ -82,6 +78,11 @@ const CreateRotaPage = () => {
                         }}>
                         Generate optimum rota
                     </Button>
+
+                    <br />
+                    <br />
+
+                    {errorMsg && <ErrorMessage error={errorMsg} />}
 
                     {
                         (generatedRotaFile && !responseText.includes("INFEASIBLE")) ?

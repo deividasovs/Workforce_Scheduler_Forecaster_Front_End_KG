@@ -1,10 +1,9 @@
-import { Typography } from "@mui/material";
+import { Alert } from "@mui/material";
 
 const ErrorMessage = ({ error }: { error: string }) => {
+
     return (
-        <Typography color="error">
-            {error}
-        </Typography>
+        <Alert severity="error">{error}</Alert>
     );
 };
 
