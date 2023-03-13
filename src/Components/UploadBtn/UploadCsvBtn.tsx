@@ -42,21 +42,22 @@ const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours,
                     const convertedCsvValues = ConvertStaffCSVToJson(result as string)
 
                     convertedCsv = convertedCsvValues.convertedCsv
-                    const { costPerHour, budgetedHours } = convertedCsv
-                    setStaffCostPerHour(costPerHour)
-                    setStaffBudgetedHours(budgetedHours)
+                    setStaffCostPerHour(convertedCsvValues.costPerHour)
+                    setStaffBudgetedHours(convertedCsvValues.budgetedHours)
                 }
 
                 console.log("-----CSV converted to Json-----")
                 console.log(convertedCsv)
 
-                /*
                 /// Check if the json is empty
-                if (convertedToJSON.length === 0) {
+                if (Object.keys(convertedCsv).length === 0) {
                     console.log("Invalid format!")
-                    errorSet("Invalid format!")
+                    errorSet("Invalid csv format. Please check the csv files match the template format")
                     return
-                }*/
+                }
+                else {
+                    errorSet("")
+                }
 
 
                 setCurrFile(convertedCsv)

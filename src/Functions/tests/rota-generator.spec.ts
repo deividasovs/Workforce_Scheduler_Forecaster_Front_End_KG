@@ -6,19 +6,19 @@ jest.mock('src/Functions/create-schedule')
 describe('RotaGenerator', () => {
     it('should call setErrorMsg when smartPredict is true and staffDataFile is undefined', () => {
         const setErrorMsg = jest.fn();
-        RotaGenerator(undefined, undefined, true, setErrorMsg, jest.fn(), jest.fn(), jest.fn());
+        RotaGenerator(undefined, undefined, true, setErrorMsg, jest.fn(), jest.fn(), jest.fn(), jest.fn());
         expect(setErrorMsg).toHaveBeenCalledWith('Please upload staff data');
     });
 
     it('should call setErrorMsg when smartPredict is false and staffDataFile is undefined', () => {
         const setErrorMsg = jest.fn();
-        RotaGenerator(undefined, {}, false, setErrorMsg, jest.fn(), jest.fn(), jest.fn());
+        RotaGenerator(undefined, {}, false, setErrorMsg, jest.fn(), jest.fn(), jest.fn(), jest.fn());
         expect(setErrorMsg).toHaveBeenCalledWith('Please upload staff data');
     });
 
     it('should call setErrorMsg when smartPredict is false, staffDataFile is defined, and demandFile is undefined', () => {
         const setErrorMsg = jest.fn();
-        RotaGenerator({}, undefined, false, setErrorMsg, jest.fn(), jest.fn(), jest.fn());
+        RotaGenerator({}, undefined, false, setErrorMsg, jest.fn(), jest.fn(), jest.fn(), jest.fn());
         expect(setErrorMsg).toHaveBeenCalledWith('Please upload demand file or use smart predict');
     });
 
@@ -28,7 +28,7 @@ describe('RotaGenerator', () => {
         const setgeneratedRotaFile = jest.fn();
         const setPredictedData = jest.fn();
 
-        RotaGenerator(undefined, {}, true, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData);
+        RotaGenerator(undefined, {}, true, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData, jest.fn());
 
         jest.spyOn(console, 'log').mockImplementation(() => { });
 
@@ -48,7 +48,7 @@ describe('RotaGenerator', () => {
 
         jest.spyOn(console, 'log').mockImplementation(() => { });
 
-        RotaGenerator(staffDataFile, demandFile, true, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData);
+        RotaGenerator(staffDataFile, demandFile, true, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData, jest.fn());
 
         expect(setErrorMsg).not.toHaveBeenCalled();
         expect(setResponseText).toHaveBeenCalled();
@@ -63,7 +63,7 @@ describe('RotaGenerator', () => {
         const setgeneratedRotaFile = jest.fn();
         const setPredictedData = jest.fn();
 
-        RotaGenerator(staffDataFile, undefined, false, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData);
+        RotaGenerator(staffDataFile, undefined, false, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData, jest.fn());
 
         expect(setErrorMsg).toHaveBeenCalledWith('Please upload demand file or use smart predict');
         expect(setResponseText).not.toHaveBeenCalled();
@@ -81,7 +81,7 @@ describe('RotaGenerator', () => {
         const mockResponse = { text: jest.fn().mockResolvedValueOnce(JSON.stringify({ stats: {}, schedule: {} })) };
         //jest.spyOn(global, 'fetch').mockResolvedValueOnce(mockResponse);
 
-        RotaGenerator(staffDataFile, demandFile, false, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData);
+        RotaGenerator(staffDataFile, demandFile, false, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData, jest.fn());
 
         expect(setErrorMsg).not.toHaveBeenCalled();
         expect(setResponseText).toHaveBeenCalled();

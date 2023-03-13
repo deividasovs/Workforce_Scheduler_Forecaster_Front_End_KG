@@ -1,40 +1,55 @@
 import { CreateSchedule, CreateScheduleWithPredictedValues } from 'src/Functions/create-schedule'
 import { GetPredictions } from "src/Functions/get-predictions"
 
-function RotaGenerator(staffDataFile: any, demandFile: any, smartPredict: boolean, setErrorMsg: any, setResponseText: any, setgeneratedRotaFile: any, setPredictedData: any) {
+const ERROR_WOUT_SMART_PREDICT_MSG = "There was an issue fetching the predictions. \n Please try again later or use smart predict."
+const ERROR_MSG = "There was an issue fetching the optimizer. \n Please try again later or upload manual demand."
+
+
+/// TODO: Clean this up bigtime!
+function RotaGenerator(staffDataFile: any, demandFile: any, smartPredict: boolean, setErrorMsg: any, setResponseText: any, setgeneratedRotaFile: any, setPredictedData: any, predictedData: any) {
+    setResponseText("Generating..")
     if (smartPredict) {
-        if (staffDataFile === undefined) {
-            setErrorMsg("Please upload staff data")
-            return
-        }
         console.log("Predicting and generating...")
+        console.log(predictedData)
 
-        GetPredictions()
-            .then(response => response.text())
-            .then(response => JSON.parse(response))
-            .then(predictedData => {
-                //setPredictedData(data)
-                CreateScheduleWithPredictedValues(staffDataFile, predictedData)
-                    .then(response => response.text())
-                    .then(response => JSON.parse(response))
-                    .then(data => {
-                        setResponseText(data.stats)
-                        setgeneratedRotaFile(data.schedule)
-                        setPredictedData(predictedData)
-                    }
-                    ).catch((err: Error) => { setErrorMsg("There was an issue fetching the optimizer: " + err) })
-            }).catch((err: Error) => { setErrorMsg("There was an issue fetching the predictions: " + err) })
+        if (predictedData) {
+            CreateScheduleWithPredictedValues(staffDataFile, predictedData)
+                .then(response => response.text())
+                .then(response => JSON.parse(response))
+                .then(data => {
+                    setResponseText(data.stats)
+                    setgeneratedRotaFile(data.schedule)
+                    console.log(data.schedule)
+                    console.log(data.stats)
+                }
+                ).catch((err: Error) => {
+                    console.log(err)
+                    setResponseText("")
+                    setErrorMsg(ERROR_WOUT_SMART_PREDICT_MSG)
+                })
+
+        } else {
+            GetPredictions()
+                .then(response => response.text())
+                .then(response => JSON.parse(response))
+                .then(predictedData => {
+                    CreateScheduleWithPredictedValues(staffDataFile, predictedData)
+                        .then(response => response.text())
+                        .then(response => JSON.parse(response))
+                        .then(data => {
+                            setResponseText(data.stats)
+                            setgeneratedRotaFile(data.schedule)
+                            setPredictedData(predictedData)
+                        }
+                        )
+                }).catch((err: Error) => {
+                    console.log(err)
+                    setResponseText("")
+                    setErrorMsg(ERROR_MSG)
+                })
+        }
+
     } else {
-        if (staffDataFile === undefined) {
-            setErrorMsg("Please upload staff data")
-            return
-        }
-
-        if (demandFile === undefined) {
-            setErrorMsg("Please upload demand file or use smart predict")
-            return
-        }
-
         staffDataFile['WeeklyCoverDemand'] = demandFile['WeeklyCoverDemand']
         CreateSchedule(staffDataFile)
             .then(response => response.text())
@@ -43,7 +58,11 @@ function RotaGenerator(staffDataFile: any, demandFile: any, smartPredict: boolea
                 setResponseText(data.stats)
                 setgeneratedRotaFile(data.schedule)
             }
-            ).catch((err: Error) => { setErrorMsg("There was an issue fetching the predictions: " + err) })
+            ).catch((err: Error) => {
+                console.log(err)
+                setResponseText("")
+                setErrorMsg(ERROR_WOUT_SMART_PREDICT_MSG)
+            })
     }
 }
 

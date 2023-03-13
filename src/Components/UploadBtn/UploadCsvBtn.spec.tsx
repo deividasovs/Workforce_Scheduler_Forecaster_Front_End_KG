@@ -4,6 +4,8 @@ import { UploadCsvBtn } from './UploadCsvBtn';
 describe('UploadCsvBtn', () => {
     let setCurrFile: jest.Mock<any, any>;
     let errorSetMock: jest.Mock<any, any>;
+    let setStaffCostPerHour: jest.Mock<any, any>;
+    let setStaffBudgetedHours: jest.Mock<any, any>;
     let isDemand: boolean;
 
     beforeEach(() => {
@@ -17,14 +19,14 @@ describe('UploadCsvBtn', () => {
     });
 
     it('renders the button', () => {
-        const { getByText } = render(<UploadCsvBtn errorSet={errorSetMock} setCurrFile={setCurrFile} isDemand={isDemand} />);
+        const { getByText } = render(<UploadCsvBtn errorSet={errorSetMock} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} setCurrFile={setCurrFile} isDemand={isDemand} />);
         expect(getByText('Upload csv')).toBeInTheDocument();
     });
 
     it('handles file upload and converts csv to json', async () => {
         const csvData = 'name,email,role\nJohn,john@example.com,developer\nJane,jane@example.com,manager\n';
         const csvFile = new File([csvData], 'staff.csv', { type: 'text/csv' });
-        const { getByLabelText, findByText } = render(<UploadCsvBtn errorSet={errorSetMock} setCurrFile={setCurrFile} isDemand={isDemand} />);
+        const { getByLabelText, findByText } = render(<UploadCsvBtn errorSet={errorSetMock} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} setCurrFile={setCurrFile} isDemand={isDemand} />);
 
         const readAsBinaryStringSpy = jest.spyOn(FileReader.prototype, 'readAsBinaryString');
         const readerOnLoad = jest.spyOn(FileReader.prototype, 'onload', 'set')

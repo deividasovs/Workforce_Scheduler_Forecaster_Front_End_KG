@@ -63,11 +63,11 @@ const MainPage = () => {
             <Button
                 variant="contained"
                 size='small'
+                disabled={!(staffDataFile && (demandFile || smartPredict))}
                 onClick={() => {
-                    setResponseText("Generating..")
-                    RotaGenerator(staffDataFile, demandFile, smartPredict, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData)
+                    RotaGenerator(staffDataFile, demandFile, smartPredict, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData, predictedData)
                 }}>
-                Generate
+                Generate optimum rota
             </Button>
 
             <br />
