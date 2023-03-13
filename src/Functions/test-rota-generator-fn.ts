@@ -1,5 +1,5 @@
 import { samplePredictedData } from 'src/Test-Data/predicted-data-return'
-import { sampleGeneratedRota } from 'src/Test-Data/sample-generated-rota'
+import { sampleGeneratedRota } from 'src/Test-Data/sampleRotas/sample-generated-rota'
 import { sampleRotaStatistics } from 'src/Test-Data/sample-rota-statistics'
 
 

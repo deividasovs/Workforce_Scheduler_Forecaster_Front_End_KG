@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { Drawer } from "./Drawer";
 
-const HeaderBar = () => {
+const HeaderBar = ({ title = "KG Workforce Forecaster Scheduler" }: { title?: string }) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -22,7 +22,7 @@ const HeaderBar = () => {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    KG Workforce Forecaster Scheduler
+                    {title}
                 </Typography>
             </Toolbar>
         </AppBar>

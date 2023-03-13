@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { TableContainer, TableHead, TableRow, TableBody, TableCell, Typography } from '@mui/material';
+import { TableContainer, TableHead, TableRow, TableBody, TableCell } from '@mui/material';
 
 import { StaffCost } from './StaffCost';
 import { CalculateStaffCost } from 'src/Functions/calculate-staff-cost';
@@ -23,18 +23,17 @@ const RotaViewer = ({ rotaFile, staffCostPerHour, hourBudget }: { rotaFile: any,
 
     return (
         <div>
-            <Typography variant="h6">Next week's rota</Typography>
             <TableContainer>
                 <TableHead>
                     <TableRow>
                         <TableCell></TableCell>
-                        <TableCell>Mon</TableCell>
-                        <TableCell>Tue</TableCell>
-                        <TableCell>Wed</TableCell>
-                        <TableCell>Thurs</TableCell>
-                        <TableCell>Fri</TableCell>
-                        <TableCell>Sat</TableCell>
-                        <TableCell>Sun</TableCell>
+                        <TableCell style={{ fontWeight: "bolder" }}>Mon</TableCell>
+                        <TableCell style={{ fontWeight: "bolder" }}>Tue</TableCell>
+                        <TableCell style={{ fontWeight: "bolder" }}>Wed</TableCell>
+                        <TableCell style={{ fontWeight: "bolder" }}>Thurs</TableCell>
+                        <TableCell style={{ fontWeight: "bolder" }}>Fri</TableCell>
+                        <TableCell style={{ fontWeight: "bolder" }}>Sat</TableCell>
+                        <TableCell style={{ fontWeight: "bolder" }}>Sun</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -42,7 +41,10 @@ const RotaViewer = ({ rotaFile, staffCostPerHour, hourBudget }: { rotaFile: any,
                         tableData.map((row, rowIndex) => (
                             <TableRow key={rowIndex}>
                                 {row.map((cell: any, cellIndex: any) => (
-                                    <TableCell key={`${rowIndex}-${cellIndex}`}>{cell}</TableCell>
+                                    cellIndex === 0 ?
+                                        <TableCell style={{ fontWeight: "bolder" }} key={`${rowIndex}-${cellIndex}`}>{cell}</TableCell>
+                                        :
+                                        <TableCell key={`${rowIndex}-${cellIndex}`}>{cell}</TableCell>
                                 ))}
                             </TableRow>
                         ))}

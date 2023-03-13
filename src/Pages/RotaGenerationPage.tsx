@@ -46,7 +46,7 @@ const RotaGenerationPage = () => {
                 TestMode
                 <Checkbox onChange={(e) => setTestMode(e.target.checked)} />
                 <br />
-
+ 
                 <b>Upload staff data</b>
                 <a href="https://kg-datasets-012.s3.eu-west-1.amazonaws.com/department_1_input.csv"><p><i>Download template</i></p></a>
                 <UploadCsvBtn setCurrFile={setStaffDataFile} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} isDemand={false} errorSet={handleErrorSet} />

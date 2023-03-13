@@ -4,8 +4,6 @@ import { GetPredictions } from "src/Functions/get-predictions"
 const ERROR_WOUT_SMART_PREDICT_MSG = "There was an issue fetching the predictions. \n Please try again later or use smart predict."
 const ERROR_MSG = "There was an issue fetching the optimizer. \n Please try again later or upload manual demand."
 
-
-/// TODO: Clean this up bigtime!
 function RotaGenerator(staffDataFile: any, demandFile: any, smartPredict: boolean, setErrorMsg: any, setResponseText: any, setgeneratedRotaFile: any, setPredictedData: any, predictedData: any) {
     setResponseText("Generating..")
     if (smartPredict) {

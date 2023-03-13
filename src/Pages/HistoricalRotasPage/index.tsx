@@ -1,0 +1,1 @@
+export { HistoricalRotasPage } from './HistoricalRotasPage'

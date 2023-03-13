@@ -2,8 +2,8 @@ const StaffCost = ({ cost, actualHours, hourBudget }: { cost: number, actualHour
 
     return (
         <>
-            <p>  Staffing budget: €{hourBudget * cost}  - {hourBudget}hrs </p>
-            <p>  Staffing cost: €{actualHours * cost} - {actualHours}hrs</p>
+            <p> Budget: €{hourBudget * cost}  - {hourBudget}hrs </p>
+            <p> Cost: €{actualHours * cost} - {actualHours}hrs</p>
         </>
     )
 }
