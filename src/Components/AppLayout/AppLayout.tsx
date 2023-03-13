@@ -9,6 +9,7 @@ const AppLayout = ({ content }: { content: ReactNode }) => {
     return (
         <>
             <HeaderBar />
+
             <Container>
                 {content}
             </Container>

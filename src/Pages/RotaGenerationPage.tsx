@@ -1,17 +1,16 @@
 import { useState } from 'react'
-import { Container, Button, Typography, Checkbox, CircularProgress, Tabs, Tab, Box } from "@mui/material"
+import { Button, Typography, Checkbox, CircularProgress } from "@mui/material"
 
 import { AppLayout } from 'src/Components/AppLayout'
 import { UploadCsvBtn } from 'src/Components/UploadBtn'
 import { ResponseText } from 'src/Components/ResponseTxt'
 import { ErrorMessage } from 'src/Components/ErrorResponses/ErrorMessage'
-import { PredictionSection } from 'src/Components/PredictionResponse/PredictionSection'
 import { RotaSection } from 'src/Components/RotaViewer'
 
 import { RotaGenerator } from 'src/Functions/rota-generator'
 import { TestRotaGenerator } from 'src/Functions/test-rota-generator-fn'
 
-const MainPage = () => {
+const RotaGenerationPage = () => {
     const [responseText, setResponseText] = useState<string>("");
     const [generatedRotaFile, setgeneratedRotaFile] = useState<any>();
     const [predictedData, setPredictedData] = useState<any>();
@@ -80,18 +79,6 @@ const MainPage = () => {
                     Generate optimum rota
                 </Button>
 
-                <br />
-                <br />
-
-                <br />
-
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs value={tabValue} onChange={handleChange} >
-                        <Tab label="Schedule" />
-                        <Tab label="Predictions" />
-                    </Tabs>
-                </Box>
-
                 {
                     (generatedRotaFile && !responseText.includes("INFEASIBLE")) ?
                         <RotaSection staffCostPerHour={staffCostPerHour} staffBudgetedHours={staffBudgetedHours} generatedRotaFile={generatedRotaFile} />
@@ -105,7 +92,6 @@ const MainPage = () => {
                 {
                     predictedData ?
                         <>
-                            <PredictionSection predictedData={predictedData} />
                         </>
                         :
                         null
@@ -114,4 +100,4 @@ const MainPage = () => {
     )
 }
 
-export { MainPage }
+export { RotaGenerationPage }

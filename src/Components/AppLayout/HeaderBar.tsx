@@ -1,13 +1,31 @@
-import { Typography, AppBar, Box, Container } from "@mui/material"
+import { useState } from "react";
+
+import { Typography, AppBar, Box, Container, Toolbar, IconButton } from "@mui/material"
+import MenuIcon from '@mui/icons-material/Menu';
+
+import { Drawer } from "./Drawer";
 
 const HeaderBar = () => {
+
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
         <AppBar position="static">
-            <Container style={{ paddingTop: "15px", paddingBottom: "15px" }} >
-                <Typography variant="h5">KG Workforce Forecaster Scheduler</Typography>
-            </Container>
+            <Toolbar>
+                <IconButton
+                    edge="start"
+                    color="inherit"
+                    sx={{ mr: 2 }}
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    <Drawer isOpen={isOpen} />
+                    <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    KG Workforce Forecaster Scheduler
+                </Typography>
+            </Toolbar>
         </AppBar>
-
     )
 }
 
