@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from "react";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { Button } from '@mui/material';
 
-import { verifyCSVLayout } from "src/Functions/verify-csv-format";
+import { verifyCSVFormat } from "src/Functions/verify-csv-format";
 import { ConvertStaffCSVToJson, ConvertDemandCSVToJson } from "src/Functions/csv-to-json";
 
 const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours, setDepartmentNo, isDemand, errorSet }: { setCurrFile: any, setStaffBudgetedHours: any, setDepartmentNo: any, setStaffCostPerHour: any, isDemand: boolean, errorSet: any }) => {
@@ -33,7 +33,7 @@ const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours,
                 console.log("----Input received----");
                 console.log(result)
 
-                if (verifyCSVLayout(result, isDemand)) {
+                if (verifyCSVFormat(result, isDemand)) {
                     errorSet("")
                     let convertedCsv: any = null
 
