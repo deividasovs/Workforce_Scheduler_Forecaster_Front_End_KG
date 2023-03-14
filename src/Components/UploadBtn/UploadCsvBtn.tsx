@@ -34,6 +34,7 @@ const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours,
                 console.log(result)
 
                 if (verifyCSVLayout(result, isDemand)) {
+                    errorSet("")
                     let convertedCsv: any = null
 
                     if (isDemand) {

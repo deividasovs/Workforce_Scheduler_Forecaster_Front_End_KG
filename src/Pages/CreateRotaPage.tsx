@@ -32,10 +32,6 @@ const CreateRotaPage = () => {
         setSmartPredict(event.target.checked);
     };
 
-    const handleErrorSet = (err: string) => {
-        setErrorMsg(err)
-    }
-
     return (
         <AppLayout
 
@@ -48,7 +44,7 @@ const CreateRotaPage = () => {
 
                     <b>Upload staff data</b>
                     <a href="https://kg-datasets-012.s3.eu-west-1.amazonaws.com/department_1_input.csv"><p><i>Download template</i></p></a>
-                    <UploadCsvBtn setCurrFile={setStaffDataFile} setDepartmentNo={setDepartmentNo} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} isDemand={false} errorSet={handleErrorSet} />
+                    <UploadCsvBtn setCurrFile={setStaffDataFile} setDepartmentNo={setDepartmentNo} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} isDemand={false} errorSet={setErrorMsg} />
 
                     <Typography>Use smart demand predict<Checkbox onChange={handleSmartPredict} /></Typography>
 
@@ -57,7 +53,7 @@ const CreateRotaPage = () => {
                             <br />
                             <b>Upload manual demand</b>
                             <a href="https://kg-datasets-012.s3.eu-west-1.amazonaws.com/manual_demand.csv"><p><i>Download template</i></p></a>
-                            <UploadCsvBtn setCurrFile={setDemandFile} setDepartmentNo={setDepartmentNo} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} isDemand={true} errorSet={handleErrorSet} />
+                            <UploadCsvBtn setCurrFile={setDemandFile} setDepartmentNo={setDepartmentNo} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} isDemand={true} errorSet={setErrorMsg} />
                             <br />
                         </>
                     }
@@ -65,7 +61,7 @@ const CreateRotaPage = () => {
                     <Button
                         variant="contained"
                         size='small'
-                        disabled={!(staffDataFile && (demandFile || smartPredict))}
+                        disabled={!(staffDataFile && (demandFile || smartPredict) && errorMsg === "")}
                         onClick={() => {
                             testMode ?
                                 TestRotaGenerator(setResponseText, setgeneratedRotaFile, setPredictedData) :
@@ -77,7 +73,7 @@ const CreateRotaPage = () => {
                     <br />
                     <br />
 
-                    {errorMsg && <ErrorMessage error={errorMsg} />}
+                    {errorMsg != "" && <ErrorMessage error={errorMsg} />}
 
                     <hr />
 
