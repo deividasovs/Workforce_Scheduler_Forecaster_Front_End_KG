@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { CircularProgress } from "@mui/material"
+import { Checkbox, CircularProgress } from "@mui/material"
 
 import { AppLayout } from "src/Components/AppLayout"
 import { PredictionTable } from 'src/Components/PredictionResponse/PredictionValues'
@@ -16,21 +16,24 @@ import { samplePredictedData } from "src/Test-Data/predicted-data-return"
 const PredictionsPage = ({ predictedData }: { predictedData?: any }) => {
 
     const [newPredictedData, setNewPredictedData] = useState<any>(predictedData)
+    const [testMode, setTestMode] = useState<boolean>(false);
+
 
     if (!newPredictedData) {
-        console.log("Fetching predicted data")
-        setNewPredictedData(samplePredictedData) // If in test mode
-        /* GetPredictions()
-             .then(response => response.text())
-             .then(response => JSON.parse(response))
-             .then(predictedData => {
-                 setNewPredictedData(predictedData)
-             }).catch((error) => {
-                 console.log(error)
-                 //TODO: Change this to some error popup
-                 document.body.appendChild(document.createTextNode(error))
-             })
-             */
+
+        testMode ?
+            setNewPredictedData(samplePredictedData) // If in test mode
+            :
+            GetPredictions()
+                .then(response => response.text())
+                .then(response => JSON.parse(response))
+                .then(predictedData => {
+                    setNewPredictedData(predictedData)
+                }).catch((error) => {
+                    console.log(error)
+                    //TODO: Change this to some error popup
+                    document.body.appendChild(document.createTextNode(error))
+                })
     }
 
     return (
@@ -38,6 +41,13 @@ const PredictionsPage = ({ predictedData }: { predictedData?: any }) => {
             title={FORECAST_PAGE_NAME}
             content={
                 <>
+                    <>
+                        <br />
+                        Dev mode
+                        <Checkbox color="default" onChange={(e) => setTestMode(e.target.checked)} />
+                        <br />
+                    </>
+
                     {newPredictedData ?
                         <>
                             <PredictionTable data={newPredictedData} />

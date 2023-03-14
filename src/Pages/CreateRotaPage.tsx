@@ -35,12 +35,6 @@ const CreateRotaPage = () => {
         setErrorMsg(err)
     }
 
-    const [tabValue, setTabValue] = useState(0);
-
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setTabValue(newValue);
-    };
-
     return (
         <AppLayout
 
@@ -86,7 +80,10 @@ const CreateRotaPage = () => {
 
                     {
                         (generatedRotaFile && !responseText.includes("INFEASIBLE")) ?
-                            <RotaSection staffCostPerHour={staffCostPerHour} staffBudgetedHours={staffBudgetedHours} generatedRotaFile={generatedRotaFile} />
+                            <>
+                                <Typography variant='h5'>[Department 1] Next week's rota </Typography>
+                                <RotaSection staffCostPerHour={staffCostPerHour} staffBudgetedHours={staffBudgetedHours} generatedRotaFile={generatedRotaFile} />
+                            </>
                             :
                             responseText === 'Generating..' ?
                                 <CircularProgress />

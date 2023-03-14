@@ -5,7 +5,6 @@ import { Container } from '@mui/material'
 import { HeaderBar } from "./HeaderBar"
 
 const AppLayout = ({ content, title }: { content: ReactNode, title?: string }) => {
-
     return (
         <>
             <HeaderBar title={title} />
