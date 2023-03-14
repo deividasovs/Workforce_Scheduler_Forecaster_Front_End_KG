@@ -1,6 +1,27 @@
 import { TPredictions } from "src/Types"
 
-function SquashDemand(payload: any, predictedValues: TPredictions) {
+function SquashDemand(payload: any, predictedValues: TPredictions, departmentNo: number) {
+    let department = predictedValues.dept1;
+
+    switch (departmentNo) {
+        case 1:
+            department = predictedValues.dept1;
+            break;
+        case 2:
+            department = predictedValues.dept2;
+            break;
+        case 3:
+            department = predictedValues.dept3;
+            break;
+        case 4:
+            department = predictedValues.dept4;
+            break;
+
+        default:
+            console.log("Error department number")
+            break;
+    }
+
     // The first shift is not accounted for in the predicted values since it's an off shift
     // Timings are 10:00 - 18:00
     const demands: number[][] = []
@@ -23,7 +44,7 @@ function SquashDemand(payload: any, predictedValues: TPredictions) {
             let totalDemand = 0
 
             for (var h = startHour - 10; h < endHour - 10; h++) {
-                totalDemand += predictedValues.dept1[(d * 8) + h]
+                totalDemand += department[(d * 8) + h]
             }
 
             /// Set the demand to equal to average returned demand for the shift

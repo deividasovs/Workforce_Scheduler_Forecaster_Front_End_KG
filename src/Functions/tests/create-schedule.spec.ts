@@ -14,7 +14,7 @@ describe('CreateScheduleWithPredictedValues', () => {
         global.fetch = mockFetch
 
         // Call the function
-        const response = await CreateScheduleWithPredictedValues(testPayload, testPredictedValues)
+        const response = await CreateScheduleWithPredictedValues(testPayload, testPredictedValues, 1)
 
         testPayload.WeeklyCoverDemand = testDemands
 

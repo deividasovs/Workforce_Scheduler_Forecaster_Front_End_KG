@@ -6,10 +6,13 @@ import { TPredictions } from "src/Types"
 
 const PredictionTable = ({ data }: { data: TPredictions }) => {
 
+    let dayOfWeek = 1
+    const weekday = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
     const newTableRows = []
 
     const columns = [
-        { field: 'id', headerName: 'ID' },
+        { field: 'day', headerName: 'Day' },
         { field: 'time', headerName: 'Time' },
         { field: 'transaction_count', headerName: 'Transactions' },
         { field: 'dept1', headerName: 'Department 1' },
@@ -18,7 +21,7 @@ const PredictionTable = ({ data }: { data: TPredictions }) => {
         { field: 'dept4', headerName: 'Department 4' },
     ]
 
-    var time = 9
+    var time = 10
 
 
     for (let i = 0; i < data.transaction_count.length; i++) {
@@ -26,6 +29,7 @@ const PredictionTable = ({ data }: { data: TPredictions }) => {
         const newRow =
         {
             id: i,
+            day: weekday[dayOfWeek - 1],
             time: `${time}:00`,
             transaction_count: data.transaction_count[i],
             dept1: data.dept1[i],
@@ -37,13 +41,15 @@ const PredictionTable = ({ data }: { data: TPredictions }) => {
 
         time++
 
-        if (time > 18) time = 9
+        if (time > 18) {
+            time = 10
+            dayOfWeek += 1
+        }
 
         newTableRows.push(
             newRow
         )
     }
-
 
     return (
         <>

@@ -3,10 +3,10 @@ import { ChangeEvent, useState } from "react";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { Button } from '@mui/material';
 
+import { verifyCSVLayout } from "src/Functions/verify-csv-format";
 import { ConvertStaffCSVToJson, ConvertDemandCSVToJson } from "src/Functions/csv-to-json";
 
-
-const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours, isDemand, errorSet }: { setCurrFile: any, setStaffBudgetedHours: any, setStaffCostPerHour: any, isDemand: boolean, errorSet: any }) => {
+const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours, setDepartmentNo, isDemand, errorSet }: { setCurrFile: any, setStaffBudgetedHours: any, setDepartmentNo: any, setStaffCostPerHour: any, isDemand: boolean, errorSet: any }) => {
     const [filename, setFilename] = useState("");
 
     const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,34 +33,27 @@ const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours,
                 console.log("----Input received----");
                 console.log(result)
 
+                if (verifyCSVLayout(result, isDemand)) {
+                    let convertedCsv: any = null
 
-                let convertedCsv: any = null
+                    if (isDemand) {
+                        convertedCsv = ConvertDemandCSVToJson(result as string)
+                    } else {
+                        const convertedCsvValues = ConvertStaffCSVToJson(result as string)
 
-                if (isDemand) {
-                    convertedCsv = ConvertDemandCSVToJson(result as string)
+                        convertedCsv = convertedCsvValues.convertedCsv
+                        setStaffCostPerHour(convertedCsvValues.costPerHour)
+                        setStaffBudgetedHours(convertedCsvValues.budgetedHours)
+                        setDepartmentNo(convertedCsvValues.department)
+                    }
+
+                    console.log("-----CSV converted to Json-----")
+                    console.log(convertedCsv)
+
+                    setCurrFile(convertedCsv)
                 } else {
-                    const convertedCsvValues = ConvertStaffCSVToJson(result as string)
-
-                    convertedCsv = convertedCsvValues.convertedCsv
-                    setStaffCostPerHour(convertedCsvValues.costPerHour)
-                    setStaffBudgetedHours(convertedCsvValues.budgetedHours)
-                }
-
-                console.log("-----CSV converted to Json-----")
-                console.log(convertedCsv)
-
-                /// Check if the json is empty
-                if (Object.keys(convertedCsv).length === 0) {
-                    console.log("Invalid format!")
                     errorSet("Invalid csv format. Please check the csv files match the template format")
-                    return
                 }
-                else {
-                    errorSet("")
-                }
-
-
-                setCurrFile(convertedCsv)
             };
         } catch (err) {
             errorSet(err)

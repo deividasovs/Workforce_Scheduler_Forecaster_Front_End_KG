@@ -14,7 +14,7 @@ describe('CreateScheduleWithPredictedValues', () => {
         global.fetch = mockFetch
 
         // Call the function
-        const response = SquashDemand(testPayload, testPredictedValues)
+        const response = SquashDemand(testPayload, testPredictedValues, 1)
 
         const expectedDemands = testDemands
 

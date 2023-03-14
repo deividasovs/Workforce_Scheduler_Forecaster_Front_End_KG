@@ -1,6 +1,7 @@
 function ConvertStaffCSVToJson(inputFile: any) {
     const convertedCsv: any = {};
 
+    let department = 0
     let budgetedHours = 0
     let costPerHour = 0
 
@@ -11,8 +12,14 @@ function ConvertStaffCSVToJson(inputFile: any) {
 
         const values = line.split(',').map((value: any) => value.trim());
 
+        // TODO: Use department in forecaster model, only use the relevant department returned.
+        // TODO: If the file does not have all of these values, return an error message.
+
         // Process the line based on its first value
         switch (values[0]) {
+            case 'Department':
+                department = parseInt(values[1]);
+                break;
             case 'Budgeted hours':
                 budgetedHours = parseInt(values[1]);
                 break;
@@ -68,7 +75,7 @@ function ConvertStaffCSVToJson(inputFile: any) {
         }
     }
 
-    return { convertedCsv, costPerHour, budgetedHours }
+    return { convertedCsv, costPerHour, budgetedHours, department }
 }
 
 function ConvertDemandCSVToJson(inputFile: any) {

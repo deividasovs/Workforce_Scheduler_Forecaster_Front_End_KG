@@ -20,7 +20,7 @@ async function CreateSchedule(payload: any) {
 }
 
 
-async function CreateScheduleWithPredictedValues(payload: any, predictedValues: TPredictions) {
+async function CreateScheduleWithPredictedValues(payload: any, predictedValues: TPredictions, departmentNo: number) {
     console.log("Creating schedule with predicted values")
 
     // If payload object contains a WeeklyCoverDemand key, then delete that key
@@ -31,7 +31,7 @@ async function CreateScheduleWithPredictedValues(payload: any, predictedValues: 
     console.log("The payload is:")
     console.log(payload)
 
-    const shiftDemands = SquashDemand(payload, predictedValues)
+    const shiftDemands = SquashDemand(payload, predictedValues, departmentNo)
 
     // Add predicted values to payload 
     payload['WeeklyCoverDemand'] = shiftDemands

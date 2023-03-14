@@ -24,6 +24,7 @@ const CreateRotaPage = () => {
 
     const [staffDataFile, setStaffDataFile] = useState<any>();
     const [demandFile, setDemandFile] = useState<any>();
+    const [departmentNo, setDepartmentNo] = useState<any>();
 
     const [errorMsg, setErrorMsg] = useState<string>("");
 
@@ -47,7 +48,7 @@ const CreateRotaPage = () => {
 
                     <b>Upload staff data</b>
                     <a href="https://kg-datasets-012.s3.eu-west-1.amazonaws.com/department_1_input.csv"><p><i>Download template</i></p></a>
-                    <UploadCsvBtn setCurrFile={setStaffDataFile} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} isDemand={false} errorSet={handleErrorSet} />
+                    <UploadCsvBtn setCurrFile={setStaffDataFile} setDepartmentNo={setDepartmentNo} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} isDemand={false} errorSet={handleErrorSet} />
 
                     <Typography>Use smart demand predict<Checkbox onChange={handleSmartPredict} /></Typography>
 
@@ -56,7 +57,7 @@ const CreateRotaPage = () => {
                             <br />
                             <b>Upload manual demand</b>
                             <a href="https://kg-datasets-012.s3.eu-west-1.amazonaws.com/manual_demand.csv"><p><i>Download template</i></p></a>
-                            <UploadCsvBtn setCurrFile={setDemandFile} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} isDemand={true} errorSet={handleErrorSet} />
+                            <UploadCsvBtn setCurrFile={setDemandFile} setDepartmentNo={setDepartmentNo} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} isDemand={true} errorSet={handleErrorSet} />
                             <br />
                         </>
                     }
@@ -68,7 +69,7 @@ const CreateRotaPage = () => {
                         onClick={() => {
                             testMode ?
                                 TestRotaGenerator(setResponseText, setgeneratedRotaFile, setPredictedData) :
-                                RotaGenerator(staffDataFile, demandFile, smartPredict, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData, predictedData)
+                                RotaGenerator(staffDataFile, departmentNo, demandFile, smartPredict, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData, predictedData)
                         }}>
                         Generate optimum rota
                     </Button>
@@ -78,10 +79,12 @@ const CreateRotaPage = () => {
 
                     {errorMsg && <ErrorMessage error={errorMsg} />}
 
+                    <hr />
+
                     {
                         (generatedRotaFile && !responseText.includes("INFEASIBLE")) ?
                             <>
-                                <Typography variant='h5'>[Department 1] Next week's rota </Typography>
+                                <Typography variant='h5'>[Department {departmentNo}] Next week's rota </Typography>
                                 <RotaSection staffCostPerHour={staffCostPerHour} staffBudgetedHours={staffBudgetedHours} generatedRotaFile={generatedRotaFile} />
                             </>
                             :
