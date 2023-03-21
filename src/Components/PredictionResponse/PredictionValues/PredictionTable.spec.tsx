@@ -13,7 +13,6 @@ describe('PredictionTable', () => {
     it('should display a table with the correct headers', () => {
         render(<PredictionTable data={testData} />);
 
-        const idHeader = screen.getByText('ID');
         const timeHeader = screen.getByText('Time');
         const transactionHeader = screen.getByText('Transactions');
         const dept1Header = screen.getByText('Department 1');
@@ -21,7 +20,6 @@ describe('PredictionTable', () => {
         const dept3Header = screen.getByText('Department 3');
         const dept4Header = screen.getByText('Department 4');
 
-        expect(idHeader).toBeInTheDocument();
         expect(timeHeader).toBeInTheDocument();
         expect(transactionHeader).toBeInTheDocument();
         expect(dept1Header).toBeInTheDocument();

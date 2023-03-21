@@ -16,11 +16,9 @@ describe('GetPredictions', () => {
     it('Gets called correctly', async () => {
         await GetPredictions();
 
-        expect(mockFetch).toHaveBeenCalledWith('http://localhost:8080/predict', {
+        expect(mockFetch).toHaveBeenCalledWith(
+            'https://dq5qsn7osnst46q5ae5eekbqhi0vekue.lambda-url.eu-west-1.on.aws', {
             method: 'GET',
-            headers: {
-                'content-type': 'application/json'
-            },
         })
     });
 

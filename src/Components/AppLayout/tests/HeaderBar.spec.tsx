@@ -1,5 +1,7 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { HeaderBar } from '.././HeaderBar';
+
+import { GENERATE_ROTA_PAGE_NAME, FORECAST_PAGE_NAME } from 'src/consts';
 
 describe('HeaderBar', () => {
     test('renders the title correctly', () => {
@@ -9,18 +11,10 @@ describe('HeaderBar', () => {
     });
 
     test('opens the drawer when the menu icon is clicked', () => {
-        const { getByRole, getByLabelText } = render(<HeaderBar />);
-        const menuIconButton = getByLabelText(/menu/i);
+        render(<HeaderBar />);
+        const menuIconButton = screen.getByTestId("MenuIcon")
         fireEvent.click(menuIconButton);
-        const drawerElement = getByRole('drawer');
-        expect(drawerElement).toBeInTheDocument();
-    });
-
-    test('toggles test mode when the checkbox is clicked', () => {
-        const { getByLabelText } = render(<HeaderBar />);
-        const checkboxElement = getByLabelText(/dev mode/i);
-        //expect(checkboxElement.checked).toBe(false);
-        fireEvent.click(checkboxElement);
-        //expect(checkboxElement.checked).toBe(true);
+        expect(screen.getByText(GENERATE_ROTA_PAGE_NAME)).toBeVisible()
+        expect(screen.getByText(FORECAST_PAGE_NAME)).toBeVisible()
     });
 });

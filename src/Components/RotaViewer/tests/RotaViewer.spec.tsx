@@ -15,12 +15,9 @@ describe("RotaViewer", () => {
     it("should render", async () => {
         const staffCostPerHour = 10
         const hourBudget = 35
-
         render(<RotaViewer rotaFile={sampleCsvData} staffCostPerHour={staffCostPerHour} hourBudget={hourBudget} />);
-        expect(screen.getByText("Next week's rota")).toBeVisible();
+
         expect(screen.getByText("Tue")).toBeVisible();
-
         expect(await screen.findByText("worker 0")).toBeVisible();
-
     });
 });

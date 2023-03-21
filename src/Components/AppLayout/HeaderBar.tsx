@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Typography, AppBar, Box, Container, Toolbar, IconButton, Checkbox } from "@mui/material"
+import { Typography, AppBar, Toolbar, IconButton } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { Drawer } from "./Drawer";
@@ -16,8 +16,7 @@ const HeaderBar = ({ title = "KG Workforce Forecaster Scheduler" }: { title?: st
                     edge="start"
                     color="inherit"
                     sx={{ mr: 2 }}
-                    onClick={() => setIsOpen(!isOpen)}
-                >
+                    onClick={() => setIsOpen(!isOpen)}>
                     <Drawer isOpen={isOpen} />
                     <MenuIcon />
                 </IconButton>

@@ -1,10 +1,12 @@
+import { TRotaGenerator } from 'src/Types/TRotaGenerator'
+
 import { CreateSchedule, CreateScheduleWithPredictedValues } from 'src/Functions/create-schedule'
 import { GetPredictions } from "src/Functions/get-predictions"
 
 const ERROR_WOUT_SMART_PREDICT_MSG = "There was an issue fetching the predictions. \n Please try again later or use smart predict."
 const ERROR_MSG = "There was an issue fetching the optimizer. \n Please try again later or upload manual demand."
 
-function RotaGenerator(staffDataFile: any, departmentNo: number, demandFile: any, smartPredict: boolean, setErrorMsg: any, setResponseText: any, setgeneratedRotaFile: any, setPredictedData: any, predictedData: any) {
+function RotaGenerator({ staffDataFile, departmentNo, demandFile, smartPredict, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData, predictedData }: TRotaGenerator) {
     setResponseText("Generating..")
     if (smartPredict) {
         console.log("Predicting and generating...")

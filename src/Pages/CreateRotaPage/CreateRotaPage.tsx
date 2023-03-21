@@ -34,7 +34,6 @@ const CreateRotaPage = () => {
 
     return (
         <AppLayout
-
             title={GENERATE_ROTA_PAGE_NAME}
             content={
                 <>
@@ -65,7 +64,12 @@ const CreateRotaPage = () => {
                         onClick={() => {
                             testMode ?
                                 TestRotaGenerator(setResponseText, setgeneratedRotaFile, setPredictedData) :
-                                RotaGenerator(staffDataFile, departmentNo, demandFile, smartPredict, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData, predictedData)
+                                RotaGenerator(
+                                    {
+                                        staffDataFile, departmentNo, demandFile, smartPredict,
+                                        setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData, predictedData
+                                    }
+                                )
                         }}>
                         Generate optimum rota
                     </Button>
