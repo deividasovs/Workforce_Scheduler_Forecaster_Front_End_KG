@@ -2,4 +2,4 @@
 
 
 ## Architecture Diagram
-![KG Architecture Diagram](https://user-images.githubusercontent.com/27140454/223455287-66dd2749-b35f-431c-a1d2-c74a3c33855b.png)
+![KG Architecture Diagram](https://user-images.githubusercontent.com/27140454/226631518-c679b5c2-0c9f-4235-bf35-0dbda3598a5d.png)

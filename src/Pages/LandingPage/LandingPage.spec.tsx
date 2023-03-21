@@ -1,6 +1,6 @@
 import { screen, render } from "@testing-library/react";
 
-import { LandingPage } from "../LandingPage";
+import { LandingPage } from "./LandingPage";
 
 describe('LandingPage', () => {
     it('should render successfully', () => {

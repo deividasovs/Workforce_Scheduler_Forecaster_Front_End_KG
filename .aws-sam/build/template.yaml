@@ -9,9 +9,6 @@ Parameters:
   HostedZoneId:
     Type: String
     Description: The Route53 hosted zone ID used for the domain
-  AcmCertificateArn:
-    Type: String
-    Description: The certificate arn for the domain name provided
   IndexDocument:
     Type: String
     Description: The index document
@@ -45,20 +42,6 @@ Conditions:
     - Ref: RewriteMode
     - SPA
 Resources:
-  DnsRecord:
-    Type: AWS::Route53::RecordSet
-    Properties:
-      HostedZoneId:
-        Ref: HostedZoneId
-      Name:
-        Ref: DomainName
-      Type: A
-      AliasTarget:
-        DNSName:
-          Fn::GetAtt:
-          - Distribution
-          - DomainName
-        HostedZoneId: Z2FDTNDATAQYW2
   Bucket:
     Type: AWS::S3::Bucket
     Properties:
@@ -178,12 +161,6 @@ Resources:
                 - FunctionMetadata.FunctionARN
         PriceClass:
           Ref: CloudFrontPriceClass
-        Aliases:
-        - Ref: DomainName
-        ViewerCertificate:
-          AcmCertificateArn:
-            Ref: AcmCertificateArn
-          SslSupportMethod: sni-only
 Outputs:
   BucketName:
     Description: The S3 bucket name where HTML files need to be uploaded
@@ -193,7 +170,3 @@ Outputs:
     Description: The CloudFront distribution in front of the S3 bucket
     Value:
       Ref: Distribution
-  WebsiteUrl:
-    Description: The website URL
-    Value:
-      Fn::Sub: https://${DomainName}/

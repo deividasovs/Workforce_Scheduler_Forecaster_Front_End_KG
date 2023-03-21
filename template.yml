@@ -15,9 +15,9 @@ Parameters:
   HostedZoneId:
     Type: String
     Description: "The Route53 hosted zone ID used for the domain"
-  AcmCertificateArn:
-    Type: String
-    Description: "The certificate arn for the domain name provided"
+  #AcmCertificateArn:
+  # Type: String
+  #    Description: "The certificate arn for the domain name provided"
   IndexDocument:
     Type: String
     Description: "The index document"
@@ -51,15 +51,15 @@ Conditions:
 # Template Resources
 
 Resources:
-  DnsRecord:
-    Type: AWS::Route53::RecordSet
-    Properties:
-      HostedZoneId: !Ref HostedZoneId
-      Name: !Ref DomainName
-      Type: A
-      AliasTarget:
-        DNSName: !GetAtt Distribution.DomainName
-        HostedZoneId: "Z2FDTNDATAQYW2" # CloudFront
+  # DnsRecord:
+  #   Type: AWS::Route53::RecordSet
+  #   Properties:
+  #     HostedZoneId: !Ref HostedZoneId
+  #     Name: !Ref DomainName
+  #     Type: A
+  #     AliasTarget:
+  #       DNSName: !GetAtt Distribution.DomainName
+  #       HostedZoneId: "Z2FDTNDATAQYW2" # CloudFront
 
   Bucket:
     Type: AWS::S3::Bucket
@@ -175,11 +175,11 @@ Resources:
                   !GetAtt RewriteRequestSpaFunction.FunctionMetadata.FunctionARN,
                 ]
         PriceClass: !Ref CloudFrontPriceClass
-        Aliases:
-          - !Ref DomainName
-        ViewerCertificate:
-          AcmCertificateArn: !Ref AcmCertificateArn
-          SslSupportMethod: sni-only
+        #Aliases:
+        #- !Ref DomainName
+        #ViewerCertificate:
+          #AcmCertificateArn: !Ref AcmCertificateArn
+          #SslSupportMethod: sni-only
 
 # Template Outputs
 
@@ -190,6 +190,6 @@ Outputs:
   CloudFrontDistribution:
     Description: "The CloudFront distribution in front of the S3 bucket"
     Value: !Ref Distribution
-  WebsiteUrl:
-    Description: "The website URL"
-    Value: !Sub "https://${DomainName}/"
+  #WebsiteUrl:
+  #Description: "The website URL"
+  #Value: !Sub "https://${DomainName}/"

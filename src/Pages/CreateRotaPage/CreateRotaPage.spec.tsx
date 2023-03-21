@@ -5,7 +5,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { RotaGenerator } from 'src/Functions/rota-generator';
 
-import { CreateRotaPage } from '../CreateRotaPage';
+import { CreateRotaPage } from './CreateRotaPage';
 
 jest.mock('src/Functions/rota-generator', () => ({
     RotaGenerator: jest.fn((setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData) => {

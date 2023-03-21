@@ -5,11 +5,8 @@ import { Checkbox, CircularProgress } from "@mui/material"
 import { AppLayout } from "src/Components/AppLayout"
 import { PredictionTable } from 'src/Components/PredictionResponse/PredictionValues'
 import { PredictionGraph } from 'src/Components/PredictionResponse/PredictionGraph'
-
 import { GetPredictions } from "src/Functions"
-
 import { FORECAST_PAGE_NAME } from "src/consts"
-
 import { samplePredictedData } from "src/Test-Data/predicted-data-return"
 
 
@@ -18,11 +15,9 @@ const PredictionsPage = ({ predictedData }: { predictedData?: any }) => {
     const [newPredictedData, setNewPredictedData] = useState<any>(predictedData)
     const [testMode, setTestMode] = useState<boolean>(false);
 
-
     if (!newPredictedData) {
-
         testMode ?
-            setNewPredictedData(samplePredictedData) // If in test mode
+            setNewPredictedData(samplePredictedData)
             :
             GetPredictions()
                 .then(response => response.text())

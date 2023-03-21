@@ -42,7 +42,7 @@ const CreateRotaPage = () => {
                     <Checkbox onChange={(e) => setTestMode(e.target.checked)} />
                     <br />
 
-                    <b>Upload staff data</b>
+                    <b>Staff data</b>
                     <a href="https://kg-datasets-012.s3.eu-west-1.amazonaws.com/department_1_input.csv"><p><i>Download template</i></p></a>
                     <UploadCsvBtn setCurrFile={setStaffDataFile} setDepartmentNo={setDepartmentNo} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} isDemand={false} errorSet={setErrorMsg} />
 
@@ -51,7 +51,7 @@ const CreateRotaPage = () => {
                     {smartPredict ? <></> :
                         <>
                             <br />
-                            <b>Upload manual demand</b>
+                            <b>Manual demand</b>
                             <a href="https://kg-datasets-012.s3.eu-west-1.amazonaws.com/manual_demand.csv"><p><i>Download template</i></p></a>
                             <UploadCsvBtn setCurrFile={setDemandFile} setDepartmentNo={setDepartmentNo} setStaffCostPerHour={setStaffCostPerHour} setStaffBudgetedHours={setStaffBudgetedHours} isDemand={true} errorSet={setErrorMsg} />
                             <br />
