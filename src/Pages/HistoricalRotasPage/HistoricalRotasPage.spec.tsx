@@ -1,16 +1,17 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { HistoricalRotasPage } from './HistoricalRotasPage';
 
+/// TODO: Fix this test
 describe('HistoricalRotasPage', () => {
-    it('should change the displayed rota when a different option is selected from the dropdown', () => {
+    it('should change the displayed rota when a different option is selected from the dropdown', async () => {
         render(<HistoricalRotasPage />);
+        // Workaround to test some MUI input components https://stackoverflow.com/questions/57110557/react-testing-library-the-given-element-does-not-have-a-value-setter-when-firee
+        const contentInput = screen.getByTestId("content-input");
+        fireEvent.change(contentInput, { target: { value: 1 } });
 
-        // Select the second option from the dropdown
-        const dropdown = screen.getByLabelText('Rota');
-        //fireEvent.change(dropdown, { target: { value: '2' } });
+        fireEvent.change(contentInput, { target: { value: 2 } });
 
-        // Check that the displayed rota has changed
-        //const rotaViewer = screen.getByRole('tabpanel', { name: 'Department 1' });
-        //expect(rotaViewer).toHaveTextContent('Sample Rota 2');
+        /// Log an error
+        fireEvent.change(contentInput, { target: { value: 0 } });
     });
 });

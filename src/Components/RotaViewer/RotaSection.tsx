@@ -14,6 +14,4 @@ const RotaSection = ({ staffCostPerHour, staffBudgetedHours, generatedRotaFile }
     </>
 )
 
-
-
 export { RotaSection }

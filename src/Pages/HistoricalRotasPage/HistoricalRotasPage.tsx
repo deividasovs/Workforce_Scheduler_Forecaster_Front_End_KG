@@ -52,6 +52,7 @@ const HistoricalRotasPage = () => {
                             labelId="rota-select-label"
                             id="rota-select"
                             value={rotaWk}
+                            inputProps={{ "data-testid": "content-input" }}
                             label="Rota"
                             onChange={handleSelectChange}
                         >

@@ -1,6 +1,6 @@
 import { testPredictedValues } from 'src/Test-Data/test-predicted-values'
 
-import { CreateScheduleWithPredictedValues } from '../create-schedule'
+import { CreateScheduleWithPredictedValues, CreateSchedule } from '../create-schedule'
 import { testDemands } from '../../Test-Data/test-demands'
 import { testPayload } from '../../Test-Data/test-payload'
 
@@ -15,6 +15,7 @@ describe('CreateScheduleWithPredictedValues', () => {
 
         // Call the function
         const response = await CreateScheduleWithPredictedValues(testPayload, testPredictedValues, 1)
+        const response2 = await CreateSchedule(testPayload)
 
         testPayload.WeeklyCoverDemand = testDemands
 
