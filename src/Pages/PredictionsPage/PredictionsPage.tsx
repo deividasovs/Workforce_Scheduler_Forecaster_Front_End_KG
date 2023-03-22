@@ -25,7 +25,6 @@ const PredictionsPage = ({ predictedData }: { predictedData?: any }) => {
                 .then(predictedData => {
                     setNewPredictedData(predictedData)
                 }).catch((error) => {
-                    console.log(error)
                     //TODO: Change this to some error popup
                     document.body.appendChild(document.createTextNode(error))
                 })

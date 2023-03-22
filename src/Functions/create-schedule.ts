@@ -6,8 +6,6 @@ import { TPredictions } from "src/Types"
 const ENDPOINT = 'http://localhost:3000/create_schedule' /// Test Endpoint
 
 async function CreateSchedule(payload: any) {
-    console.log("Creating schedule")
-
     const scheduleResponse = await fetch(ENDPOINT, {
         method: 'POST',
         headers: {

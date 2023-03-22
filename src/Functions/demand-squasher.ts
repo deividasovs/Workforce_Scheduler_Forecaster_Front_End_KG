@@ -18,7 +18,7 @@ function SquashDemand(payload: any, predictedValues: TPredictions, departmentNo:
             break;
 
         default:
-            console.log("Error department number")
+            //console.log("Error department number")
             break;
     }
 

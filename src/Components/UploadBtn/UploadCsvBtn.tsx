@@ -29,10 +29,6 @@ const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours,
                 }
                 const { result } = evt.target;
 
-
-                console.log("----Input received----");
-                console.log(result)
-
                 if (verifyCSVFormat(result, isDemand)) {
                     errorSet("")
                     let convertedCsv: any = null
@@ -47,9 +43,6 @@ const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours,
                         setStaffBudgetedHours(convertedCsvValues.budgetedHours)
                         setDepartmentNo(convertedCsvValues.department)
                     }
-
-                    console.log("-----CSV converted to Json-----")
-                    console.log(convertedCsv)
 
                     setCurrFile(convertedCsv)
                 } else {

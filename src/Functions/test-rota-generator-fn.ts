@@ -7,8 +7,6 @@ function TestRotaGenerator(setResponseText: any, setgeneratedRotaFile: any, setP
     setResponseText(sampleRotaStatistics)
     setgeneratedRotaFile(sampleGeneratedRota)
     setPredictedData(samplePredictedData)
-    console.log(sampleGeneratedRota)
-    console.log(sampleRotaStatistics)
 }
 
 export { TestRotaGenerator }

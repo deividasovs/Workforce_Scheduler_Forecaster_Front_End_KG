@@ -31,7 +31,7 @@ const HistoricalRotasPage = () => {
                 break;
 
             default:
-                console.log("Broken rota switch")
+                //console.log("Broken rota switch")
                 break;
         }
     };

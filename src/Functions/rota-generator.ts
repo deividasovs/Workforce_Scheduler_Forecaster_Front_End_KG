@@ -9,9 +9,6 @@ const ERROR_MSG = "There was an issue fetching the optimizer. \n Please try agai
 function RotaGenerator({ staffDataFile, departmentNo, demandFile, smartPredict, setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData, predictedData }: TRotaGenerator) {
     setResponseText("Generating..")
     if (smartPredict) {
-        console.log("Predicting and generating...")
-        console.log(predictedData)
-
         if (predictedData) {
             CreateScheduleWithPredictedValues(staffDataFile, predictedData, departmentNo)
                 .then(response => response.text())
@@ -19,11 +16,8 @@ function RotaGenerator({ staffDataFile, departmentNo, demandFile, smartPredict, 
                 .then(data => {
                     setResponseText(data.stats)
                     setgeneratedRotaFile(data.schedule)
-                    console.log(data.schedule)
-                    console.log(data.stats)
                 }
                 ).catch((err: Error) => {
-                    console.log(err)
                     setResponseText("")
                     setErrorMsg(ERROR_WOUT_SMART_PREDICT_MSG)
                 })
@@ -43,7 +37,6 @@ function RotaGenerator({ staffDataFile, departmentNo, demandFile, smartPredict, 
                         }
                         )
                 }).catch((err: Error) => {
-                    console.log(err)
                     setResponseText("")
                     setErrorMsg(ERROR_MSG)
                 })
@@ -59,7 +52,6 @@ function RotaGenerator({ staffDataFile, departmentNo, demandFile, smartPredict, 
                 setgeneratedRotaFile(data.schedule)
             }
             ).catch((err: Error) => {
-                console.log(err)
                 setResponseText("")
                 setErrorMsg(ERROR_WOUT_SMART_PREDICT_MSG)
             })
