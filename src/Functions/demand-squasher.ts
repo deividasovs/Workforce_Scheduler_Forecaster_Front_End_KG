@@ -27,7 +27,6 @@ function SquashDemand(payload: any, predictedValues: TPredictions, departmentNo:
     const demands: number[][] = []
 
     /// Make the demands array payload.shifts.length long and 7 days long
-
     for (var d = 0; d < 7; d++) {
         demands.push([])
         /// Skip the first shift, it's an off shift
@@ -35,9 +34,6 @@ function SquashDemand(payload: any, predictedValues: TPredictions, departmentNo:
             const startTime = payload.Shifts[i].split("-")[0]
             const endTime = payload.Shifts[i].split("-")[1]
 
-            // Get the average demand between the startTime and the EndTime shift
-
-            /// From the start time till the endTime, get the average demand
             const startHour = parseInt(startTime.split(":")[0])
             const endHour = parseInt(endTime.split(":")[0])
 
@@ -47,7 +43,6 @@ function SquashDemand(payload: any, predictedValues: TPredictions, departmentNo:
                 totalDemand += department[(d * 8) + h]
             }
 
-            /// Set the demand to equal to average returned demand for the shift
             let avgDemand = Math.round(totalDemand / (endHour - startHour))
             if (Number.isNaN(avgDemand)) { /// TODO: Fix this! -> Just a HotFix for now...
                 avgDemand = 1

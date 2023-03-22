@@ -23,7 +23,6 @@ const PredictionTable = ({ data }: { data: TPredictions }) => {
 
     var time = 10
 
-
     for (let i = 0; i < data.transaction_count.length; i++) {
 
         const newRow =
@@ -37,7 +36,6 @@ const PredictionTable = ({ data }: { data: TPredictions }) => {
             dept3: data.dept3[i],
             dept4: data.dept4[i]
         }
-
 
         time++
 
@@ -69,6 +67,5 @@ const PredictionTable = ({ data }: { data: TPredictions }) => {
     )
 
 }
-
 
 export { PredictionTable }

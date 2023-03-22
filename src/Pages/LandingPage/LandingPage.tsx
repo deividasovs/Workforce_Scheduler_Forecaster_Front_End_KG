@@ -47,14 +47,8 @@ const LandingPage = () => {
                     </>
                 }
             />
-
-
         </>
     )
 }
-
-
-
-
 
 export { LandingPage }

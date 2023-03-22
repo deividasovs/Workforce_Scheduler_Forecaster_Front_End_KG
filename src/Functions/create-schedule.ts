@@ -2,10 +2,12 @@
 import { SquashDemand } from "./demand-squasher"
 import { TPredictions } from "src/Types"
 
-
-const ENDPOINT = 'http://localhost:3000/create_schedule' /// Test Endpoint
+//const ENDPOINT = 'http://localhost:3000/create_schedule' /// Test Endpoint
+const ENDPOINT = 'https://am1p7l3j57.execute-api.eu-west-1.amazonaws.com/Prod/create_schedule'
 
 async function CreateSchedule(payload: any) {
+    console.log(payload)
+
     const scheduleResponse = await fetch(ENDPOINT, {
         method: 'POST',
         headers: {
@@ -19,7 +21,6 @@ async function CreateSchedule(payload: any) {
 
 
 async function CreateScheduleWithPredictedValues(payload: any, predictedValues: TPredictions, departmentNo: number) {
-    // If payload object contains a WeeklyCoverDemand key, then delete that key
     if (payload.WeeklyCoverDemand) {
         delete payload.WeeklyCoverDemand
     }

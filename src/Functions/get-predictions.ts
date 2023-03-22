@@ -1,11 +1,9 @@
-/// Get latest predictions from the s3 bucket
 const ENDPOINT = 'https://dq5qsn7osnst46q5ae5eekbqhi0vekue.lambda-url.eu-west-1.on.aws'
 
 async function GetPredictions() {
     const predictions = await fetch(ENDPOINT, {
         method: 'GET',
     })
-
     return predictions
 }
 

@@ -11,8 +11,7 @@ const Drawer = ({ isOpen }: { isOpen: boolean }) => (
         anchor='left'
         open={isOpen}
         onClose={() => { }}
-        onOpen={() => { }}
-    >
+        onOpen={() => { }}>
         <List>
             <ListItem button component={Link} href={LANDING_PAGE_EP}>
                 <ListItemIcon>

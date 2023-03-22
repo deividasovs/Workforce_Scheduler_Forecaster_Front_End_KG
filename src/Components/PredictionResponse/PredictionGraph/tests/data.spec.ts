@@ -10,8 +10,6 @@ const mockPredictions: TPredictions = {
 };
 
 describe("predicted_data", () => {
-
-    /// Mock today's date
     jest.useFakeTimers()
         .setSystemTime(new Date('2023-02-05'));
 

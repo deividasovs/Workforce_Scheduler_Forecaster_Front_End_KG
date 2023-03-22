@@ -1,3 +1,8 @@
 export { CreateSchedule, CreateScheduleWithPredictedValues } from './create-schedule'
 export { generateCSVFileFromString } from './string-to-csv-file'
 export { GetPredictions } from './get-predictions'
+export { RotaGenerator } from './rota-generator'
+export { SquashDemand } from './demand-squasher'
+export { ConvertStaffCSVToJson } from './csv-to-json'
+export { CalculateStaffCost } from './calculate-staff-cost'
+export { verifyCSVFormat } from './verify-csv-format'

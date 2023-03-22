@@ -2,16 +2,15 @@ import { useState } from "react";
 
 import { Box, FormControl, InputLabel, MenuItem, Tab } from "@mui/material"
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { TabPanel, TabContext, TabList } from "@mui/lab";
 
 import { sampleGeneratedRota } from "src/Test-Data/sampleRotas/sample-generated-rota";
 import { sampleGeneratedRota2 } from "src/Test-Data/sampleRotas/sample-generated-rota-2";
 
 import { AppLayout } from "src/Components/AppLayout"
-import { RotaViewer } from "src/Components/RotaViewer/RotaViewer"
-import { TabPanel, TabContext, TabList } from "@mui/lab";
+import { RotaViewer } from "src/Components/RotaViewer"
+
 import { HISTORICAL_ROTAS_PAGE_NAME } from "src/consts";
-
-
 
 /// TODO: Why is it not changing on different select?
 const HistoricalRotasPage = () => {
