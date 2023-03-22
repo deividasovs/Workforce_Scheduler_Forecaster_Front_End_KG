@@ -27,7 +27,6 @@ function SquashDemand(payload: any, predictedValues: TPredictions, departmentNo:
     const demands: number[][] = []
 
     /// Make the demands array payload.shifts.length long and 7 days long
-
     for (var d = 0; d < 7; d++) {
         demands.push([])
         /// Skip the first shift, it's an off shift
