@@ -77,7 +77,7 @@ const CreateRotaPage = () => {
                     <br />
                     <br />
 
-                    {errorMsg != "" && <ErrorMessage error={errorMsg} />}
+                    {errorMsg !== "" && <ErrorMessage error={errorMsg} />}
 
                     <hr />
 

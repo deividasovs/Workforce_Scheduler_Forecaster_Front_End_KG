@@ -34,7 +34,7 @@ function agglomorateData(startAt: number, transction_count: any[]): number {
     const endAt = startAt + 8
     let res = 0
 
-    transction_count.slice(startAt, endAt).map((d: any) => {
+    transction_count.slice(startAt, endAt).forEach((d: any) => {
         res += d
     })
 

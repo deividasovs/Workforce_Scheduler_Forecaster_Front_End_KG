@@ -18,7 +18,7 @@ const RotaViewer = ({ rotaFile, staffCostPerHour, hourBudget }: { rotaFile: any,
         const totalStaffHours = CalculateStaffCost(tableData);
         setActualStaffHours(totalStaffHours);
         setTableData(tableData);
-    }, []);
+    }, [rotaFile]);
 
 
     return (

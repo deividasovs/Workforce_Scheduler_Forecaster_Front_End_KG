@@ -17,17 +17,17 @@ import { HISTORICAL_ROTAS_PAGE_NAME } from "src/consts";
 const HistoricalRotasPage = () => {
     const [rotaWk, setRotaWk] = useState('');
     const [value, setValue] = useState('0');
-    const [rotaFile, setRotaFile] = useState<String>(() => new String(sampleGeneratedRota))
+    const [rotaFile, setRotaFile] = useState<String>(() => sampleGeneratedRota)
     const handleSelectChange = (event: SelectChangeEvent) => {
         setRotaWk(event.target.value as string);
 
         switch (event.target.value as string) {
             case "1":
-                setRotaFile(new String(sampleGeneratedRota))
+                setRotaFile(sampleGeneratedRota)
                 break;
 
             case "2":
-                setRotaFile(new String(sampleGeneratedRota2))
+                setRotaFile(sampleGeneratedRota2)
                 break;
 
             default:
