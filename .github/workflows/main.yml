@@ -1,13 +1,10 @@
 name: Development
 
 on:
+  push:
+    branches: [main]
   pull_request:
-    types:
-      - opened
-      - edited
-      - synchronize
-      - reopened
-  workflow_call:
+    branches: [main]
 
 jobs:
   test:
@@ -28,9 +25,6 @@ jobs:
 
       - name: "📦 install dependencies"
         uses: bahmutov/npm-install@v1
-
-      - name: "🔍 run tests"
-        run: npm run test --if-present
 
   lint:
     name: Code standards
@@ -53,3 +47,18 @@ jobs:
 
       - name: "🔍 lint code"
         run: npm run lint --if-present
+
+  sam:
+    name: Build sam container
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: aws-actions/setup-sam@v1
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+      # sam build
+      - run: sam build --use-container
