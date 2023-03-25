@@ -38,9 +38,9 @@ const RotaViewer = ({ rotaFile, staffCostPerHour, hourBudget }: { rotaFile: any,
                 </TableHead>
                 <TableBody>
                     {
-                        tableData.map((row, rowIndex) => (
+                        tableData.slice(0, -1).map((row, rowIndex) => (
                             <TableRow key={rowIndex}>
-                                {row.map((cell: any, cellIndex: any) => (
+                                {row.map((cell: string, cellIndex: number) => (
                                     cellIndex === 0 ?
                                         <TableCell style={{ fontWeight: "bolder" }} key={`${rowIndex}-${cellIndex}`}>{cell}</TableCell>
                                         :
@@ -50,7 +50,6 @@ const RotaViewer = ({ rotaFile, staffCostPerHour, hourBudget }: { rotaFile: any,
                         ))}
                 </TableBody>
             </TableContainer>
-
             <StaffCost cost={staffCostPerHour} hourBudget={hourBudget} actualHours={actualStaffHours} />
         </div>
     )

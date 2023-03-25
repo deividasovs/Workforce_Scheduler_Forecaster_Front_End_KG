@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { PredictionsPage } from './PredictionsPage';
-import { samplePredictedData } from "../../Test-Data/predicted-data-return";
+import { samplePredictedData } from "src/Test-Data/predicted-data-return";
 import { GetPredictions } from "src/Functions"
 
 jest.mock('src/Functions')
@@ -11,9 +11,9 @@ describe('PredictionsPage', () => {
         const mockGetPredictions = jest.fn(() => Promise.resolve({
             text: () => Promise.resolve(JSON.stringify(samplePredictedData)),
         }))
-
         const mockedGetPredictions = GetPredictions as jest.Mock
         mockedGetPredictions.mockReturnValue(mockGetPredictions());
+
         render(<PredictionsPage />);
         expect(mockGetPredictions).toBeCalledTimes(1);
     });
@@ -22,9 +22,9 @@ describe('PredictionsPage', () => {
         const mockGetPredictions = jest.fn(() => Promise.resolve({
             text: () => Promise.reject('Error'),
         }))
-
         const mockedGetPredictions = GetPredictions as jest.Mock
         mockedGetPredictions.mockReturnValue(mockGetPredictions());
+
         render(<PredictionsPage />);
         expect(mockGetPredictions).toBeCalledTimes(1);
         expect(await screen.findByText('Error')).toBeInTheDocument();

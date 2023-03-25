@@ -11,9 +11,12 @@ const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours,
 
     const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
         try {
-            if (!e.target.files) {
+            if (!e.target.files || (e.target.files && !e.target.files.length)) {
+                setFilename("")
+                setCurrFile(null)
                 return;
             }
+
             const file = e.target.files[0];
             const { name } = file;
 
@@ -50,7 +53,7 @@ const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours,
                 }
             };
         } catch (err) {
-            errorSet(err)
+            console.log(err)
         }
     };
 
@@ -60,8 +63,7 @@ const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours,
                 variant="outlined"
                 component="label"
                 size="small"
-                startIcon={<UploadFileIcon />}
-            >
+                startIcon={<UploadFileIcon />}>
                 Upload csv
                 <input
                     type="file"

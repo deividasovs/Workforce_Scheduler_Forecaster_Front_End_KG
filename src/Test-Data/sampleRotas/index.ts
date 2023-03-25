@@ -1,0 +1,8 @@
+export { sampleGeneratedRotaDept1Wk1 } from './dept1/sample-generated-rota-dept-1-wk-1'
+export { sampleGeneratedRotaDept1Wk2 } from './dept1/sample-generated-rota-dept-1-wk-2'
+export { sampleGeneratedRotaDept2Wk1 } from './dept2/sample-generated-rota-dept-2-wk-1'
+export { sampleGeneratedRotaDept2Wk2 } from './dept2/sample-generated-rota-dept-2-wk-2'
+export { sampleGeneratedRotaDept3Wk1 } from './dept3/sample-generated-rota-dept-3-wk-1'
+export { sampleGeneratedRotaDept3Wk2 } from './dept3/sample-generated-rota-dept-3-wk-2'
+export { sampleGeneratedRotaDept4Wk1 } from './dept4/sample-generated-rota-dept-4-wk-1'
+export { sampleGeneratedRotaDept4Wk2 } from './dept4/sample-generated-rota-dept-4-wk-2'

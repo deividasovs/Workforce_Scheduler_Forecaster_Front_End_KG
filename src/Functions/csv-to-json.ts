@@ -58,7 +58,7 @@ function ConvertStaffCSVToJson(inputFile: any) {
                             const employee = parseInt(values[1])
                             const shift = parseInt(values[2])
                             const day = parseInt(values[3])
-                            const want = values[4] === "Yes" ? -2 : 2
+                            const want = values[4] === "Yes" ? -1 : 4
                             convertedCsv['Requests'].push([employee, shift, day, want]);
                         }
                         break;

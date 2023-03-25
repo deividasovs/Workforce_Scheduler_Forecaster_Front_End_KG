@@ -1,47 +1,41 @@
+/*
+Note: This is Proof of concept code, it is not production ready and is used only to demonstrate the historicl rotas feature
+*/
+
 import { useState } from "react";
 
 import { Box, FormControl, InputLabel, MenuItem, Tab } from "@mui/material"
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { TabPanel, TabContext, TabList } from "@mui/lab";
 
-import { sampleGeneratedRota } from "src/Test-Data/sampleRotas/sample-generated-rota";
-import { sampleGeneratedRota2 } from "src/Test-Data/sampleRotas/sample-generated-rota-2";
-
 import { AppLayout } from "src/Components/AppLayout"
 import { RotaViewer } from "src/Components/RotaViewer"
 
 import { HISTORICAL_ROTAS_PAGE_NAME } from "src/consts";
 
-/// TODO: Why is it not changing on different select?
+import { rotaSelectStructure } from "src/Test-Data/sampleRotas/rota-select-structure";
+
 const HistoricalRotasPage = () => {
-    const [rotaWk, setRotaWk] = useState('');
-    const [value, setValue] = useState('0');
-    const [rotaFile, setRotaFile] = useState<String>(() => sampleGeneratedRota)
+    const [rotaWk, setRotaWk] = useState('wk1');
+    const [dept, setDept] = useState('dept1');
+    const [rotaFile, setRotaFile] = useState<String>(() => rotaSelectStructure.dept1.wk1)
+
+
     const handleSelectChange = (event: SelectChangeEvent) => {
-        setRotaWk(event.target.value as string);
-
-        switch (event.target.value as string) {
-            case "1":
-                setRotaFile(sampleGeneratedRota)
-                break;
-
-            case "2":
-                setRotaFile(sampleGeneratedRota2)
-                break;
-
-            default:
-                //console.log("Broken rota switch")
-                break;
-        }
+        const rotaWk = event.target.value as string
+        const newRota = rotaSelectStructure[dept][rotaWk]
+        setRotaWk(rotaWk);
+        setRotaFile(newRota)
     };
 
     const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
-        setValue(newValue);
+        const newRota = rotaSelectStructure[newValue][rotaWk]
+        setDept(newValue);
+        setRotaFile(newRota)
     };
 
     return (
         <AppLayout
-
             title={HISTORICAL_ROTAS_PAGE_NAME}
             content={
                 <>
@@ -50,32 +44,38 @@ const HistoricalRotasPage = () => {
                         <Select
                             labelId="rota-select-label"
                             id="rota-select"
+                            size="small"
                             value={rotaWk}
                             inputProps={{ "data-testid": "content-input" }}
                             label="Rota"
-                            onChange={handleSelectChange}
-                        >
-                            <MenuItem value={"1"}>Wk1</MenuItem>
-                            <MenuItem value={"2"}>Wk2</MenuItem>
+                            onChange={handleSelectChange}>
+                            <MenuItem value={"wk1"}>Wk1</MenuItem>
+                            <MenuItem value={"wk2"}>Wk2</MenuItem>
                         </Select>
                     </FormControl>
 
                     <Box sx={{ width: "100%", typography: "body1" }}>
-                        <TabContext value={value}>
+                        <TabContext value={dept}>
                             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                                 <TabList onChange={handleTabChange}>
-                                    <Tab label="Department 1" value="0" />
-                                    <Tab label="Department 2" value="1" />
-                                    <Tab label="Department 3" value="2" />
-                                    <Tab label="Department 4" value="3" />
+                                    <Tab label="Department 1" value="dept1" />
+                                    <Tab label="Department 2" value="dept2" />
+                                    <Tab label="Department 3" value="dept3" />
+                                    <Tab label="Department 4" value="dept4" />
                                 </TabList>
                             </Box>
-                            <TabPanel value="0">
-                                <RotaViewer rotaFile={rotaFile} staffCostPerHour={5} hourBudget={10} />
+                            <TabPanel value="dept1">
+                                <RotaViewer rotaFile={rotaFile} staffCostPerHour={16.4} hourBudget={160} />
                             </TabPanel>
-                            <TabPanel value="1">Department 2</TabPanel>
-                            <TabPanel value="2">Department 3</TabPanel>
-                            <TabPanel value="3">Department 4</TabPanel>
+                            <TabPanel value="dept2">
+                                <RotaViewer rotaFile={rotaFile} staffCostPerHour={13.6} hourBudget={124} />
+                            </TabPanel>
+                            <TabPanel value="dept3">
+                                <RotaViewer rotaFile={rotaFile} staffCostPerHour={12.2} hourBudget={100} />
+                            </TabPanel>
+                            <TabPanel value="dept4">
+                                <RotaViewer rotaFile={rotaFile} staffCostPerHour={11.96} hourBudget={60} />
+                            </TabPanel>
                         </TabContext>
                     </Box>
 
