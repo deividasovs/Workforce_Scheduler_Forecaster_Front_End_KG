@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { HistoricalRotasPage } from './HistoricalRotasPage';
 
-/// TODO: Fix this test
 describe('HistoricalRotasPage', () => {
     it('should change the displayed rota when a different option is selected from the dropdown', async () => {
         render(<HistoricalRotasPage />);
@@ -11,7 +10,6 @@ describe('HistoricalRotasPage', () => {
 
         fireEvent.change(contentInput, { target: { value: 2 } });
 
-        /// Log an error
         fireEvent.change(contentInput, { target: { value: 0 } });
     });
 });

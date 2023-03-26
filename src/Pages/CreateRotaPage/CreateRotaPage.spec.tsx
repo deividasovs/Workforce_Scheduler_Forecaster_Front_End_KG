@@ -3,15 +3,13 @@ import React from 'react';
 
 import { render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { GenerateRota } from 'src/Functions/generate-rota';
 
 import { CreateRotaPage } from './CreateRotaPage';
+import { GenerateRota } from 'src/Functions/generate-rota';
 
-jest.mock('src/Functions/rota-generator', () => ({
-    RotaGenerator: jest.fn((setErrorMsg, setResponseText, setgeneratedRotaFile, setPredictedData) => {
-        setgeneratedRotaFile("abc");
-    })
-}));
+import { testRotaGeneratedDataResponse as mockRotaGeneratedDataResponse } from 'src/Test-Data/test-rota-generated-data-response';
+
+jest.mock('src/Functions/generate-rota');
 
 describe('ResponseText component', () => {
     it('should render the initial content', async () => {
@@ -20,9 +18,6 @@ describe('ResponseText component', () => {
         expect(screen.getAllByText("Create rota")[0]).toBeVisible();
         expect(screen.getAllByText("Create rota")[1]).not.toBeVisible();
 
-        const generateButton = screen.getByText(/Generate/);
-        //userEvent.click(generateButton);
-
         expect(screen.getByText('Staff data')).toBeInTheDocument();
         expect(screen.getByText('Use smart demand predict')).toBeInTheDocument();
 
@@ -30,11 +25,9 @@ describe('ResponseText component', () => {
         userEvent.click(smartPredictCheckbox);
 
         expect(smartPredictCheckbox.checked).toBe(true);
-
     });
 
     it('should process the click events', async () => {
-
         render(<CreateRotaPage />);
 
         const staffDataFile = new File([''], 'staff.csv', { type: 'text/csv' });
@@ -46,18 +39,15 @@ describe('ResponseText component', () => {
         const demandFileInput = screen.getAllByLabelText('Upload csv')[1];
         fireEvent.change(demandFileInput, { target: { files: [demandFile] } });
 
-
-        // Stub the initial state
-        const myInitialState = 'My Initial State'
-
-        React.useState = jest.fn().mockReturnValue([myInitialState, {}])
+        const mockGenerateRota = jest.fn(() => Promise.resolve({
+            text: () => Promise.resolve(mockRotaGeneratedDataResponse),
+        }))
+        const mockedCreateSchedule = GenerateRota as jest.Mock
+        mockedCreateSchedule.mockReturnValue(mockGenerateRota());
 
         const generateButton = screen.getByText(/Generate/);
-        //        userEvent.click(generateButton);
+        fireEvent.click(generateButton);
 
-        //      expect(GenerateRota).toHaveBeenCalled();
-
-        //const downloadRotaBtn = await screen.findByText('Download Rota CSV');
-        //userEvent.click(downloadRotaBtn);
+        expect(mockGenerateRota).toHaveBeenCalled();
     });
 });

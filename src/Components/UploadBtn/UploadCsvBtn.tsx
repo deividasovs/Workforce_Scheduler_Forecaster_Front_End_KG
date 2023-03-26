@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { Button } from '@mui/material';
@@ -6,7 +6,16 @@ import { Button } from '@mui/material';
 import { verifyCSVFormat } from "src/Functions/verify-csv-format";
 import { ConvertStaffCSVToJson, ConvertDemandCSVToJson } from "src/Functions/csv-to-json";
 
-const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours, setDepartmentNo, isDemand, errorSet }: { setCurrFile: any, setStaffBudgetedHours: any, setDepartmentNo: any, setStaffCostPerHour: any, isDemand: boolean, errorSet: any }) => {
+type TUploadCSVBtn = {
+    setCurrFile: React.Dispatch<React.SetStateAction<any>>,
+    setStaffBudgetedHours: React.Dispatch<React.SetStateAction<number>>,
+    setDepartmentNo: React.Dispatch<React.SetStateAction<number>>,
+    setStaffCostPerHour: React.Dispatch<React.SetStateAction<number>>,
+    isDemand: boolean,
+    errorSet: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
+const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours, setDepartmentNo, isDemand, errorSet }: TUploadCSVBtn) => {
     const [filename, setFilename] = useState("");
 
     const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {

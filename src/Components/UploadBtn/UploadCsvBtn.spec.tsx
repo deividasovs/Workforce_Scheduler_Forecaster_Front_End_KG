@@ -28,15 +28,11 @@ describe('UploadCsvBtn', () => {
         fireEvent.change(screen.getByLabelText('Upload csv'), { target: { files: [csvFile] } });
 
         expect(readerOnLoad).toBeCalled()
-        //TODO: Fix this test!
 
-        /*    expect(errorSetMock).toBeCalled()
-           expect(setDepartmentNo).toBeCalled()
-   
-           expect(readAsBinaryStringSpy).toBeCalled()
-           expect(readerOnLoad).toBeCalled()
-   
-           const staffName = await findByText('staff.csv');
-           expect(staffName).toBeInTheDocument(); */
+        expect(readAsBinaryStringSpy).toBeCalled()
+        expect(readerOnLoad).toBeCalled()
+
+        const staffName = await screen.findByText('staff.csv');
+        expect(staffName).toBeInTheDocument();
     });
 });

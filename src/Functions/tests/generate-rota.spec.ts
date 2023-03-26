@@ -1,118 +1,75 @@
 import { GenerateRota } from '../generate-rota';
 
-jest.mock('./Functions/create-schedule');
-jest.mock('./Functions/get-predictions');
+import { testPayload } from 'src/Test-Data/test-payload';
+import { testDemands } from 'src/Test-Data/test-demands';
+import { testRotaGeneratedDataResponse as mockRotaGeneratedDataResponse } from 'src/Test-Data/test-rota-generated-data-response';
+import { GetPredictions } from '../get-predictions';
+import { CreateSchedule } from '../create-schedule';
 
-const mockCreateSchedule = require('./Functions/create-schedule').CreateSchedule;
-const mockGetPredictions = require('./Functions/get-predictions').GetPredictions;
 
-//TODO: Clean up here
+jest.mock('src/Functions/create-schedule');
 
-const staffDataFile = {
-    // mock staff data file
-};
+jest.mock('src/Functions/get-predictions');
 
-const demandFile = {
-    // mock demand file
-};
+describe('GenerateRota function', () => {
+    it('should return response text and generated Rota file when using smart predict', async () => {
+        const departmentNo = 1;
 
-describe('GenerateRota', () => {
-    // beforeEach(() => {
-    //     jest.resetAllMocks();
-    // });
+        const mockGetPredictions = jest.fn(() => Promise.resolve({
+            json: () => Promise.resolve(mockRotaGeneratedDataResponse),
+        }))
+        const mockedGetPredictions = GetPredictions as jest.Mock
+        mockedGetPredictions.mockReturnValue(mockGetPredictions());
 
-    // it('should generate a rota with smart predict', async () => {
-    //     const departmentNo = '123';
-    //     const predictedData = {
-    //         // mock predicted data
-    //     };
-    //     const stats = 'some stats';
-    //     const schedule = 'some schedule';
+        const mockCreateSchedule = jest.fn(() => Promise.resolve({
+            json: () => Promise.resolve(mockRotaGeneratedDataResponse),
+        }))
+        const mockedCreateSchedule = CreateSchedule as jest.Mock
+        mockedCreateSchedule.mockReturnValue(mockCreateSchedule());
 
-    //     // mock GetPredictions
-    //     mockGetPredictions.mockResolvedValueOnce({
-    //         json: jest.fn().mockResolvedValueOnce(predictedData),
-    //     });
+        const result = await GenerateRota({ staffDataFile: testPayload, departmentNo, demandFile: testDemands, smartPredict: true });
+        expect(result.responseText).toBe(mockRotaGeneratedDataResponse.stats);
+        expect(result.generatedRotaFile).toEqual(mockRotaGeneratedDataResponse.schedule);
+    });
 
-    //     // mock CreateSchedule
-    //     mockCreateSchedule.mockResolvedValueOnce({
-    //         json: jest.fn().mockResolvedValueOnce({ stats, schedule }),
-    //     });
+    it('should return error message when there is an issue fetching predictions with smart predict', async () => {
+        const departmentNo = 3;
 
-    //     const result = await GenerateRota({
-    //         staffDataFile,
-    //         departmentNo,
-    //         demandFile,
-    //         smartPredict: true,
-    //     });
+        const mockGetPredictions = jest.fn(() => Promise.resolve({
+            json: () => Promise.resolve(mockRotaGeneratedDataResponse),
+        }))
+        const mockedGetPredictions = GetPredictions as jest.Mock
+        mockedGetPredictions.mockReturnValue(mockGetPredictions());
 
-    //     expect(mockGetPredictions).toHaveBeenCalledTimes(1);
-    //     expect(mockCreateSchedule).toHaveBeenCalledTimes(1);
-    //     expect(mockCreateSchedule).toHaveBeenCalledWith(
-    //         staffDataFile,
-    //         departmentNo,
-    //         predictedData
-    //     );
-    //     expect(result).toEqual({ responseText: stats, generatedRotaFile: schedule });
-    // });
+        const mockCreateSchedule = jest.fn(() => Promise.resolve({
+            text: () => Promise.resolve('error received'),
+        }))
+        const mockedCreateSchedule = CreateSchedule as jest.Mock
+        mockedCreateSchedule.mockReturnValue(mockCreateSchedule());
 
-    // it('should generate a rota without smart predict', async () => {
-    //     const departmentNo = '123';
-    //     const stats = 'some stats';
-    //     const schedule = 'some schedule';
+        const result = await GenerateRota({ staffDataFile: testPayload, departmentNo, demandFile: testDemands, smartPredict: true });
+        expect(result.errorMsg).toBe('There was an issue fetching the optimizer. \n Please try again later or upload manual demand.');
+        expect(result.responseText).toBe('error received');
+    });
 
-    //     // mock CreateSchedule
-    //     mockCreateSchedule.mockResolvedValueOnce({
-    //         json: jest.fn().mockResolvedValueOnce({ stats, schedule }),
-    //     });
 
-    //     const result = await GenerateRota({
-    //         staffDataFile,
-    //         departmentNo,
-    //         demandFile,
-    //         smartPredict: false,
-    //     });
+    it('should return a correct value when not using smart predict', async () => {
+        const departmentNo = 2;
 
-    //     expect(mockCreateSchedule).toHaveBeenCalledTimes(1);
-    //     expect(mockCreateSchedule).toHaveBeenCalledWith(staffDataFile);
-    //     expect(result).toEqual({ responseText: stats, generatedRotaFile: schedule });
-    // });
+        const mockGetPredictions = jest.fn(() => Promise.resolve({
+            json: () => Promise.resolve(mockRotaGeneratedDataResponse),
+        }))
+        const mockedGetPredictions = GetPredictions as jest.Mock
+        mockedGetPredictions.mockReturnValue(mockGetPredictions());
 
-    // it('should handle errors with smart predict', async () => {
-    //     const departmentNo = '123';
-    //     const error = new Error('Some error');
+        const mockCreateSchedule = jest.fn(() => Promise.resolve({
+            json: () => Promise.resolve(mockRotaGeneratedDataResponse),
+        }))
+        const mockedCreateSchedule = CreateSchedule as jest.Mock
+        mockedCreateSchedule.mockReturnValue(mockCreateSchedule());
 
-    //     // mock GetPredictions
-    //     mockGetPredictions.mockRejectedValueOnce(error);
-
-    //     const result = await GenerateRota({
-    //         staffDataFile,
-    //         departmentNo,
-    //         demandFile,
-    //         smartPredict: true,
-    //     });
-
-    //     expect(mockGetPredictions).toHaveBeenCalledTimes(1);
-    //     expect(mockCreateSchedule).not.toHaveBeenCalled();
-    //     expect(result).toEqual({ errorMsg: 'There was an issue fetching the optimizer. \n Please try again later or upload manual demand.', responseText: 'error received' });
-    // });
-
-    // it('should handle errors without smart predict', async () => {
-    //     const departmentNo = '123';
-    //     const error = new Error('Some error');
-
-    //     // mock CreateSchedule
-    //     mockCreateSchedule.mockRejectedValueOnce(error);
-
-    //     const result = await GenerateRota({
-    //         staffDataFile,
-    //         departmentNo,
-    //         demandFile,
-    //         smartPredict: false,
-    //     });
-
-    //     expect(mockCreateSchedule).toHaveBeenCalledTimes(1);
-    //     expect(mockCreateSchedule).toHaveBeenCalledWith(staffDataFile);
-    //     expect(result).toEqual({ errorMsg: 'There was an issue fetching the predictions. \n Please try again later or use smart predict.', responseText: 'error received' });
-    // });
+        const result = await GenerateRota({ staffDataFile: testPayload, departmentNo, demandFile: testDemands, smartPredict: false });
+        expect(result.responseText).toBe(mockRotaGeneratedDataResponse.stats);
+        expect(result.generatedRotaFile).toEqual(mockRotaGeneratedDataResponse.schedule);
+    });
 });

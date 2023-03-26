@@ -44,8 +44,8 @@ function SquashDemand(payload: any, predictedValues: TPredictions, departmentNo:
             }
 
             let avgDemand = Math.round(totalDemand / (endHour - startHour))
-            if (Number.isNaN(avgDemand)) { /// TODO: Fix this! -> Just a HotFix for now...
-                avgDemand = 1
+            if (Number.isNaN(avgDemand)) {
+                avgDemand = 0
             }
             demands[d].push(avgDemand)
         }

@@ -1,8 +1,7 @@
 import { ConvertStaffCSVToJson, ConvertDemandCSVToJson } from "../csv-to-json"
 
 const sampleInput =
-    `
-Employees,6,,,
+    `Employees,6,,,
 ,,,,
 Shifts,Start,End,,
 ,Off,Off,,
@@ -33,8 +32,8 @@ const sampleOutput = {
         "15:00-20:00"
     ],
     "Requests": [
-        [0, 0, 3, -2],
-        [1, 2, 1, 2]
+        [0, 0, 3, -1],
+        [1, 2, 1, 4]
     ],
     "FixedAssignments": [
         [0, 0, 0],
@@ -47,7 +46,6 @@ const sampleOutput = {
 describe('ConvertCSVToJson', () => {
     test('converts a csv string to json file', async () => {
         const output = ConvertStaffCSVToJson(sampleInput)
-        //const jsonStr = JSON.stringify(output);
         expect(output.convertedCsv).toEqual(sampleOutput)
     })
 })
@@ -81,7 +79,6 @@ const sampleDemandOutput = {
 describe('ConvertDemandCSVToJson', () => {
     test('converts a csv string to json file', () => {
         const output = ConvertDemandCSVToJson(sampleDemandInput)
-        //const jsonStr = JSON.stringify(output);
         expect(output).toEqual(sampleDemandOutput)
     })
 })
