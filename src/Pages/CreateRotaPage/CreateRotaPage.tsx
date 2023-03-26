@@ -46,7 +46,6 @@ const CreateRotaPage = () => {
         setgeneratedRotaFile(generatedRotaFile)
     }
 
-
     return (
         <AppLayout
             title={GENERATE_ROTA_PAGE_NAME}

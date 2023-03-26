@@ -54,5 +54,4 @@ function SquashDemand(payload: any, predictedValues: TPredictions, departmentNo:
     return demands
 }
 
-
 export { SquashDemand }

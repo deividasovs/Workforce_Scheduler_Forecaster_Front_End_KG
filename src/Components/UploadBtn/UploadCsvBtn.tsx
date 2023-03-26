@@ -62,7 +62,7 @@ const UploadCsvBtn = ({ setCurrFile, setStaffCostPerHour, setStaffBudgetedHours,
                 }
             };
         } catch (err) {
-            console.log(err)
+            errorSet("Error uploading file" + err)
         }
     };
 

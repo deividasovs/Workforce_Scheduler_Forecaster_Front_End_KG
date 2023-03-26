@@ -12,7 +12,6 @@ function ConvertStaffCSVToJson(inputFile: any) {
 
         const values = line.split(',').map((value: any) => value.trim());
 
-        // Process the line based on its first value
         switch (values[0]) {
             case 'Department':
                 department = parseInt(values[1]);

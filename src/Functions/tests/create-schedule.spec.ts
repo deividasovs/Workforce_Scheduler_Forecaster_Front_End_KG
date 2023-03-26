@@ -29,5 +29,3 @@ describe('CreateScheduleWithPredictedValues', () => {
         expect(response.json).toEqual({ message: 'Schedule created successfully' })
     })
 })
-
-
