@@ -3,7 +3,7 @@ import React from 'react';
 
 import { render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { RotaGenerator } from 'src/Functions/rota-generator';
+import { GenerateRota } from 'src/Functions/generate-rota';
 
 import { CreateRotaPage } from './CreateRotaPage';
 
@@ -55,7 +55,7 @@ describe('ResponseText component', () => {
         const generateButton = screen.getByText(/Generate/);
         //        userEvent.click(generateButton);
 
-        //      expect(RotaGenerator).toHaveBeenCalled();
+        //      expect(GenerateRota).toHaveBeenCalled();
 
         //const downloadRotaBtn = await screen.findByText('Download Rota CSV');
         //userEvent.click(downloadRotaBtn);

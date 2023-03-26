@@ -9,7 +9,6 @@ const LandingPage = () => {
     const footerStyle: CSSProperties = {
         position: "absolute",
         bottom: "0",
-        width: "100%",
     }
 
     return (

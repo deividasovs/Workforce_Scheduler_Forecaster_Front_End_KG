@@ -1,6 +1,6 @@
 import { testPredictedValues } from 'src/Test-Data/test-predicted-values'
 
-import { CreateScheduleWithPredictedValues, CreateSchedule } from '../create-schedule'
+import { CreateSchedule } from '../create-schedule'
 import { testDemands } from '../../Test-Data/test-demands'
 import { testPayload } from '../../Test-Data/test-payload'
 
@@ -12,12 +12,11 @@ describe('CreateScheduleWithPredictedValues', () => {
         })
         global.fetch = mockFetch
 
-        const response = await CreateScheduleWithPredictedValues(testPayload, testPredictedValues, 1)
-        const response2 = await CreateSchedule(testPayload)
+        const response = await CreateSchedule(testPayload, 1, testPredictedValues)
 
         testPayload.WeeklyCoverDemand = testDemands
 
-        expect(mockFetch).toHaveBeenCalledWith('https://am1p7l3j57.execute-api.eu-west-1.amazonaws.com/Prod/create_schedule', {
+        expect(mockFetch).toHaveBeenCalledWith('https://9mq1l963r9.execute-api.eu-west-1.amazonaws.com/Prod/create_schedule/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -7,7 +7,7 @@ const RotaSection = ({ staffCostPerHour, staffBudgetedHours, generatedRotaFile }
     { staffCostPerHour: number, staffBudgetedHours: number, generatedRotaFile: any }) => (
     <>
         <RotaViewer staffCostPerHour={staffCostPerHour} hourBudget={staffBudgetedHours} rotaFile={generatedRotaFile} />
-        <Button variant="contained" color='success' onClick={() => generateCSVFileFromString(generatedRotaFile, "Rota.csv",)}>
+        <Button variant="contained" size="small" color='success' onClick={() => generateCSVFileFromString(generatedRotaFile, "Rota.csv",)}>
             Download Rota CSV
         </Button>
     </>

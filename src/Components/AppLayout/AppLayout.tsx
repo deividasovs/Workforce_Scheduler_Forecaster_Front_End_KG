@@ -11,6 +11,7 @@ const AppLayout = ({ content, title }: { content: ReactNode, title?: string }) =
             <div style={{ margin: "30px" }}></div>
             <Container>
                 {content}
+
             </Container>
         </>
     )
