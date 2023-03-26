@@ -9,7 +9,7 @@ describe("StaffCost", () => {
         const hourBudget = 35
 
         render(<StaffCost cost={cost} actualHours={actualHours} hourBudget={hourBudget} />);
-        expect(screen.getByText("Budget: €350 - 35hrs")).toBeInTheDocument();
-        expect(screen.getByText("Cost: €400 - 40hrs")).toBeInTheDocument();
+        expect(screen.getByText("Budget: €350.00 - 35hrs")).toBeInTheDocument();
+        expect(screen.getByText("Cost: €400.00 - 40hrs")).toBeInTheDocument();
     });
 });
