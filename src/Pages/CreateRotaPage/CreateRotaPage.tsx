@@ -78,7 +78,9 @@ const CreateRotaPage = () => {
                     <br />
                     <br />
 
+                    {errorMsg && errorMsg !== "" && <ErrorMessage error={errorMsg} />}
                     <hr />
+
                     {generatedRotaFile && !responseText.includes("INFEASIBLE") &&
                         <>
                             <Typography variant='h5'>[Department {visualDepartmentNo}] Next week's rota </Typography>
@@ -98,7 +100,7 @@ const CreateRotaPage = () => {
                         <></>
                     }
 
-                    {errorMsg && errorMsg !== "" && <ErrorMessage error={errorMsg} />}
+
 
                 </>
             }
